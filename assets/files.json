@@ -62,6 +62,33 @@
             "textureURL": "assets/lightning.png",
             "atlasURL": "assets/atlas/lightning.json",
             "atlasData": null
+        },
+        {
+
+            "type": "image",
+            "key": "border-left",
+            "url": "assets/border_left.png",
+            "overwrite":true
+        },
+        {
+            "type": "image",
+            "key": "border-right",
+            "url": "assets/border_right.png",
+            "overwrite":true
+        },
+        {
+
+            "type": "image",
+            "key": "border-top",
+            "url": "assets/border_top.png",
+            "overwrite":true
+        },
+        {
+
+            "type": "image",
+            "key": "border-bottom",
+            "url": "assets/border_bottom.png",
+            "overwrite": true
         }
     ],
     "sounds": [

@@ -40,26 +40,10 @@ GAME.Main.prototype = {
 
         //// ENABLE KEYBOARD KEYS FOR ONE-OFF
         var spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        var upKey;
+        var downKeyn
         spaceKey.onDown.add(toggleDeconstruct, this);
 
-        // create modals
-        // createModal("game-over");
-        //createModal("level");
-        // Show FPS
-        game.time.advancedTiming = true;
-        this.fpsText = this.game.add.text(
-            20, 20, '', {
-                font: '16px Arial',
-                fill: '#ffffff'
-            }
-        );
-    },
-    update: function() {
-        if (this.game.time.fps !== 0) {
-            this.fpsText.setText(this.game.time.fps + ' FPS');
-        }
-
-        // UPDATE SOMETHING EACH FRAME
         if (reg.player.locked === false) {
             if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
                 applyGravity("top");
@@ -82,9 +66,53 @@ GAME.Main.prototype = {
             }
         }
 
+        // create modals
+        // createModal("game-over");
+        //createModal("level");
+        // Show FPS
+        game.time.advancedTiming = true;
+        this.fpsText = this.game.add.text(
+            20, 20, '', {
+                font: '16px Arial',
+                fill: '#ffffff'
+            }
+        );
+    },
+    update: function() {
+        if (this.game.time.fps !== 0) {
+            this.fpsText.setText(this.game.time.fps + ' FPS');
+        }
+
+        // UPDATE SOMETHING EACH FRAME
+        // if (reg.player.locked === false) {
+        //     if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+        //         applyGravity("top");
+        //     } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+        //         applyGravity("down");
+        //     } else if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+        //         applyGravity("left");
+        //     } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+        //         applyGravity("right");
+        //     }
+        //     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+        //         // TODO: Check for game mode
+        //         //toggleDeconstruct();
+        //     } else {
+        //         if (reg.levelEditor[reg.currentLevel].mechanic === "gravity") {
+
+        //         } else {
+        //             applyGravity("none");
+        //         }
+        //     }
+        // }
+
         ////////// COLLISION DETECTION /////////////
 
         if (reg.sectionElements) {
+            game.physics.arcade.overlap(reg.sectionElements, reg.player, onHeroCollide);
+        }
+
+        if(reg.blocks) {
             game.physics.arcade.overlap(reg.sectionElements, reg.player, onHeroCollide);
         }
 
@@ -185,6 +213,16 @@ function morphHero(type) {
     }
 }
 
+// Win condition
+function enterPortal(portal, player) {
+    reg.success.play();
+    player.animations.play("idle");
+    player.x = portal.x+portal.width/2 - player.width/2;
+    player.y = portal.y+portal.height/2 - player.height/2;
+
+
+}
+
 function createElements() {
     var type = reg.levelEditor[reg.currentLevel].bgType;
     reg.sectionElements = game.add.group();
@@ -192,7 +230,7 @@ function createElements() {
     reg.sectionElements.physicsBodyType = Phaser.Physics.ARCADE;
 
     if (type === "gravity") {
-        var wallR = game.add.sprite(0, 0, "wallV");
+        var wallR = game.add.sprite(0, 0, "border-right");
         wallR.x = game.width - wallR.width;
         wallR.y = 0;
         game.physics.enable(wallR, Phaser.Physics.ARCADE);
@@ -202,7 +240,7 @@ function createElements() {
         wallR.active = true;
         wallR.body.enable = true;
         ////////
-        var wallL = game.add.sprite(0, 0, "wallV");
+        var wallL = game.add.sprite(0, 0, "border-left");
         wallL.x = 0;
         wallL.y = 0;
         game.physics.enable(wallL, Phaser.Physics.ARCADE);
@@ -212,7 +250,7 @@ function createElements() {
         wallL.active = true;
         wallL.body.enable = true;
         ////////
-        var wallT = game.add.sprite(0, 0, "wallH");
+        var wallT = game.add.sprite(0, 0, "border-top");
         wallT.x = 0;
         wallT.y = 0;
         game.physics.enable(wallT, Phaser.Physics.ARCADE);
@@ -222,7 +260,7 @@ function createElements() {
         wallT.active = true;
         wallT.body.enable = true;
         ////////
-        var wallD = game.add.sprite(0, 0, "wallH");
+        var wallD = game.add.sprite(0, 0, "border-bottom");
         wallD.x = 0;
         wallD.y = game.height - wallD.height;
         game.physics.enable(wallD, Phaser.Physics.ARCADE);

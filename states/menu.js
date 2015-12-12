@@ -42,7 +42,7 @@ GAME.Menu.prototype = {
         //     this.soundButton.alpha = 0;
         //     this.nosoundButton.alpha = 1;
         // }
-
+/*
         this.logoGroup = game.add.group();
 
         this.logoBackground = this.add.image(0, 0, "logoBG");
@@ -97,7 +97,9 @@ GAME.Menu.prototype = {
             game.state.start("Game");
         }, this.logoGroup);
 
+    */
 
+    game.state.start("Game");
 
     },
     startGame: function() {
