@@ -38,7 +38,14 @@ GAME.Main.prototype = {
         //createStrip();
         createHero();
         // create HUD
-        //createHUD();
+
+        // Create a white rectangle that we'll use to represent the flash
+        this.flash = this.game.add.graphics(0, 0);
+        this.flash.beginFill(0xffffff, 1);
+        this.flash.drawRect(0, 0, this.game.width, this.game.height);
+        this.flash.endFill();
+        this.flash.alpha = 0;
+        reg.flash = this.flash;
 
         //// ENABLE KEYBOARD KEYS FOR ONE-OFF
         var spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -47,7 +54,10 @@ GAME.Main.prototype = {
         var leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         var rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
-        spaceKey.onDown.add(toggleDeconstruct, this);
+        if(reg.levelEditor[reg.currentLevel].mechanic === "deconstruct"){
+            spaceKey.onDown.add(toggleDeconstruct, this);
+        }
+
         upKey.onDown.add(applyGravity, this, 0, "top");
         downKey.onDown.add(applyGravity, this,0, "down");
         leftKey.onDown.add(applyGravity, this, 0, "left");
@@ -145,8 +155,22 @@ function createBackground() {
 
 function createHero() {
     var player = game.add.sprite(100, 0, "hero");
-    player.y = game.height / 2 - player.height / 2;
-    player.x = game.width / 2 - player.width / 2;
+    if(reg.levelEditor[reg.currentLevel].mechanic === "gravity"){
+        player.y = game.height / 2 - player.height / 2;
+        player.x = game.width / 2 - player.width / 2;
+    }
+    else if(reg.levelEditor[reg.currentLevel].mechanic === "deconstruct") {
+        player.y = game.height/2 - player.height/2;
+        player.x = 100;
+    }
+    else if(reg.levelEditor[reg.currentLevel].mechanic === "polarity") {
+        player.y = game.height/2 - player.height/2;
+        player.x = 100;   
+    }
+    else if(reg.levelEditor[reg.currentLevel].mechanic === "shift"){
+        player.y = game.height/2 - player.height/2;
+        player.x = 100;
+    }
     player.anchor.setTo(0.5, 0.5);
     player.side = "left";
     player.id = "player";
@@ -287,10 +311,10 @@ function createElements() {
         createObstacles("polarity");
     }
     else if(type === "deconstruct") {
-
+        createObstacles("deconstruct");
     }
     else if(type === "tutorial") {
-
+        createObstacles("tutorial");
     }
 }
 
@@ -411,12 +435,14 @@ function enableDeconstruct() {
     window.console.log("deconstruct now");
     reg.player.body.enable = false;
     reg.player.animations.play("deconstruct");
+    reg.deconstruction.play();
 }
 
 function disableDeconstruct() {
     window.console.log("construct back");
     reg.player.body.enable = true;
     reg.player.animations.play("construct");
+    reg.construction.play();
 }
 
 
@@ -433,6 +459,13 @@ function onHeroCollide(item, player) {
     }
 
     window.console.log("ouch!");
+    shockAndAwe();
+    reg.player.body.velocity.x = 0;
+    reg.player.body.velocity.y = 0;
+    reg.player.body.gravity.x = 0;
+    reg.player.body.gravity.y = 0;
+    reg.player.animations.play("idle");
+    reg.player.reset(game.width/2-reg.player.width/2, game.height/2-reg.player.height/2);
     return true;
 }
 

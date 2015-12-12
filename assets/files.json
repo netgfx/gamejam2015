@@ -124,13 +124,7 @@
         },
         {
             "type": "audio",
-            "key": "morph",
-            "urls": ["assets/sounds/keyboardtyping.mp3"],
-            "autoDecode": true
-        },
-        {
-            "type": "audio",
-            "key": "morph",
+            "key": "keyboardtyping",
             "urls": ["assets/sounds/keyboardtyping.mp3"],
             "autoDecode": true
         },
@@ -142,7 +136,7 @@
         },
         {
             "type": "audio",
-            "key": "morph",
+            "key": "deconstruction",
             "urls": ["assets/sounds/deconstruction.mp3"],
             "autoDecode": true
         }

@@ -24,6 +24,16 @@ GAME.Menu.prototype = {
             reg.morph.volume = 0.1;
         }
 
+        if(reg.deconstruction === undefined) {
+            reg.deconstruction = game.add.audio("deconstruction");
+            reg.deconstruction.volume = 0.1;
+        }
+
+        if(reg.construction === undefined) {
+            reg.construction = game.add.audio("construction");
+            reg.construction.volume = 0.1;
+        }
+
         if(reg.keyboardtyping === undefined) {
             reg.keyboardtyping = game.add.audio("keyboardtyping");
             reg.keyboardtyping.volume = 0.5;

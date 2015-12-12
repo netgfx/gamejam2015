@@ -3,81 +3,68 @@
 **/
 
 function createSectorGravity() {
-	var num = 11;
+	var num = 9;
 	var blocks = game.add.group();
 	var block;
-	var coords = [{
+		var offset1=39;
+		var coords = [{
 		x: 200,
-		y: 0,
+		y: 0+offset1,
 		type: "wallV",
 		index: "#1"
 	}, 
 	{
 		x: 200,
-		y: 200,
+		y: 230+offset1,
 		type: "wallV",
 		index: "#2"
 	},
+
 	{
 		x: 200,
-		y: 400,
-		type: "wallV",
-		index: "#3"
-	},
-	{
-		x: 200,
-		y: 600,
+		y: 460+offset1,
 		type: "wallH",
 		index: "#4"
 	},
 	{
-		x: game.width/2 - 500,
-		y: 250,
+		x: 450,
+		y: 180,
 		type: "wallH",
 		index: "#5"
 	},
 	{
-		x: game.width/2 - 100,
-		y: game.height/2 - 280,
+		x: game.width/2 +150,
+		y: game.height/2 - 160,
 		type: "wallH",
 		index: "#6"
 	},
-	{
-		x: game.width/2 - 100,
-		y: game.height/2 + 280,
+		{
+		x: 30,
+		y: game.height-105 ,
 		type: "wallH",
 		index: "#7"
 	},
+
 	{
-		x: game.width/2 - 200,
-		y: game.height/2 - 100,
+		x: game.width/2 +55 ,
+		y: game.height/2 - 90,
 		type: "wallV",
 		index: "#8"
 	},
+
 	{
-		x: game.width/2 + 200,
-		y: game.height/2 - 100,
-		type: "wallV",
-		index: "#9"
-	},
-	{
-		x: game.width/2 - 55,
-		y: game.height - 250,
+		x: game.width/2 +55,
+		y: game.height - 280,
 		type: "wallV",
 		index: "#10"
 	},
 	{
-		x: game.width - 280,
-		y: game.height/2 - 27,
-		type: "wallV",
-		index: "#11"
-	},
-	{
-		x: game.width - 200,
-		y: game.height - 280,
+		x: game.width - 230,
+		y: game.height/2 + 127,
 		type: "wallH",
-		index: "#12"	
+		index: "#11"
 	}
+
 	];
 	for (var i = 0; i < num; i++) {
 		var pos = coords[i];
