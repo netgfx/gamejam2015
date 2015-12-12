@@ -7,6 +7,12 @@
             "overwrite": true
         },
         {
+            "type": "image",
+            "key": "bg2",
+            "url": "assets/bg2.png",
+            "overwrite": true
+        },
+        {
             "type": "atlasJSONHash",
             "key": "hero",
             "textureURL": "assets/hero.png",
@@ -99,37 +105,37 @@
         {
             "type": "image",
             "key": "timebarBG",
-            "url": "assets/lifeBarTime_01.png",
-            "overwrite": true
-        },
-        {
-            "type": "image",
-            "key": "timebarFill",
             "url": "assets/lifeBarTime_02.png",
             "overwrite": true
         },
         {
             "type": "image",
-            "key": "shiftbarBG",
-            "url": "assets/lifeBarShift_01.png",
+            "key": "timebarFill",
+            "url": "assets/lifeBarTime_01.png",
             "overwrite": true
         },
         {
             "type": "image",
-            "key": "shiftbarFill",
+            "key": "shiftbarBG",
             "url": "assets/lifeBarShift_02.png",
             "overwrite": true
         },
         {
             "type": "image",
+            "key": "shiftbarFill",
+            "url": "assets/lifeBarShift_01.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
             "key": "deconstructbarBG",
-            "url": "assets/lifeBarDeconstruction_01.png",
+            "url": "assets/lifeBarDeconstruction_02.png",
             "overwrite": true
         },
         {
             "type": "image",
             "key": "deconstructbarFill",
-            "url": "assets/lifeBarDeconstruction_02.png",
+            "url": "assets/lifeBarDeconstruction_01.png",
             "overwrite": true
         }
     ],

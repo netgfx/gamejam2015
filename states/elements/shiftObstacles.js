@@ -58,7 +58,7 @@ function createSectorShift() {
 		block = game.add.sprite(0, 0, pos.type);
 		block.x = pos.x;
 		block.y = pos.y;
-		block.alpha = 0.8;
+		block.alpha = 0;
 		// REMOVE WHEN DONE
 		var text = game.add.text(pos.x, pos.y, pos.index, {
 			font: '16px Arial',
@@ -68,4 +68,23 @@ function createSectorShift() {
 	}
 
 	reg.blocks = blocks;
+}
+
+function initShiftTimer(fn) {
+	removeShiftTimer();
+	initShiftLoopedTimer(fn, 250);
+}
+
+function decreaseShiftBar() {
+	var volume = 5;
+	reg.timebarFill.width = Math.round(reg.timebarFill.width - volume);
+
+	if(reg.timebarFill.width < 0) {
+		reg.timebarFill.width = 0;
+		removeShift();
+	}
+}
+
+function stopShiftDecrease() {
+	removeShiftTimer();
 }

@@ -15,7 +15,7 @@ reg = {
 
     },
     quotes: [
-        ":> sample quote to be writen in the console"
+        "sample quote to be writen in the console"
     ],
     specificQuotes:{
         "shift":{

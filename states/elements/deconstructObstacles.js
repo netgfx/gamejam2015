@@ -48,6 +48,7 @@ function decreaseDeconstructionBar() {
 
 	if(reg.timebarFill.width < 0) {
 		reg.timebarFill.width = 0;
+		disableDeconstruct();
 		window.console.log("ended mojo");
 	}
 }

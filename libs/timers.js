@@ -42,6 +42,22 @@ function removeDeconstructTimer() {
     }
 }
 
+
+function initShiftLoopedTimer(fn, time) {
+    reg.shiftTimer = game.time.create(false);
+    var _time = time || 250;
+
+    reg.shiftTimer.loop(_time, fn, this, []);
+    reg.shiftTimer.start();
+}
+
+function removeShiftTimer() {
+    if(reg.shiftTimer) {
+        reg.shiftTimer.stop();
+        game.time.events.remove(reg.shiftTimer);
+    }
+}
+
 /**
  * [removeTimer description]
  * @return {[type]} [description]

@@ -9,13 +9,14 @@ GAME.Main.prototype = {
     create: function() {
         // Set stage background color
         game.stage.backgroundColor = 0x121212;
-        game.add.image(0, 0, "bg");
+        reg.strip = game.add.image(0, 0, "bg");
 
         if (!this.game.device.desktop) {
 
         }
 
         utils.garbageCollect();
+        reg.itemsWithShift = [];
         // Simulate a pointer click/tap input at the center of the stage
         // when the example begins running.
         game.input.activePointer.x = this.game.width / 2;
@@ -57,28 +58,24 @@ GAME.Main.prototype = {
         if (reg.levelEditor[reg.currentLevel].mechanic === "deconstruct") {
             spaceKey.onDown.add(toggleDeconstruct, this);
             createDeconstructBar();
-        }
-        else{
+        } else if (reg.levelEditor[reg.currentLevel].mechanic === "shift") {
+
+            upKey.onDown.add(applyGravity, this, 0, "top");
+            downKey.onDown.add(applyGravity, this, 0, "down");
+            leftKey.onDown.add(applyGravity, this, 0, "left");
+            rightKey.onDown.add(applyGravity, this, 0, "right");
+            spaceKey.onDown.add(toggleShift, this);
+            createShiftBar();
+
+            reg.itemsWithShift.push(reg.strip);
+            reg.itemsWithShift.push(reg.timebarFill);
+        } else {
             upKey.onDown.add(applyGravity, this, 0, "top");
             downKey.onDown.add(applyGravity, this, 0, "down");
             leftKey.onDown.add(applyGravity, this, 0, "left");
             rightKey.onDown.add(applyGravity, this, 0, "right");
         }
         // TODO: add event listener args
-
-        if (reg.player.locked === false) {
-
-            if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-                // TODO: Check for game mode
-                //toggleDeconstruct();
-            } else {
-                if (reg.levelEditor[reg.currentLevel].mechanic === "gravity") {
-
-                } else {
-                    applyGravity("none");
-                }
-            }
-        }
 
         // INIT MAIN TRACK //
         reg.song.play();
@@ -142,7 +139,7 @@ GAME.Main.prototype = {
     },
     render: function() {
         if (reg.player) {
-            game.debug.body(reg.player);
+            //game.debug.body(reg.player);
             //game.debug.body(reg.sectionElements.children[0]);
         }
     }
@@ -185,6 +182,7 @@ function createHero() {
     player.body.acceleration.x = 0;
     player.body.acceleration.y = 0;
     player.locked = false;
+    player.shifted = false;
     player.animations.add('idle', Phaser.Animation.generateFrameNames('character_normal_0', 1, 9, '', 0), 10, true);
     ////// GRAVITY /////
     player.animations.add('triangleUp', Phaser.Animation.generateFrameNames('character_triangle_up_0', 1, 4, '', 0), 12, false);
@@ -215,26 +213,37 @@ function createHero() {
 
 function createTimeBar() {
     reg.timebarBG = game.add.image(0, 0, "timebarBG");
-    reg.timebarBG.x = game.width/2 - reg.timebarBG.width/2;
+    reg.timebarBG.x = game.width / 2 - reg.timebarBG.width / 2;
     reg.timebarBG.y = 5;
     //
     reg.timebarFill = game.add.image(0, 0, "timebarFill");
-    reg.timebarFill.x = reg.timebarBG+5;
-    reg.timebarFill.y = reg.timebarBG+5;
+    reg.timebarFill.x = reg.timebarBG + 5;
+    reg.timebarFill.y = reg.timebarBG + 5;
     reg.timebarFill.initialWidth = reg.timebarFill.width;
 }
 
 function createDeconstructBar() {
     window.console.log("init deconstruction bar");
     reg.timebarBG = game.add.image(0, 0, "deconstructbarBG");
-    reg.timebarBG.x = game.width/2 - reg.timebarBG.width/2;
+    reg.timebarBG.x = game.width / 2 - reg.timebarBG.width / 2;
     reg.timebarBG.y = 60;
     ///
     reg.timebarFill = game.add.sprite(0, 0, "deconstructbarFill");
-    reg.timebarFill.x = reg.timebarBG.x+1;
+    reg.timebarFill.x = reg.timebarBG.x + 1;
     reg.timebarFill.y = reg.timebarBG.y;
     reg.timebarFill.initialWidth = reg.timebarFill.width;
     window.console.log(reg.timebarFill.x);
+}
+
+function createShiftBar() {
+    reg.timebarBG = game.add.image(0, 0, "shiftbarBG");
+    reg.timebarBG.x = game.width / 2 - reg.timebarBG.width / 2;
+    reg.timebarBG.y = 60;
+    ///
+    reg.timebarFill = game.add.sprite(0, 0, "shiftbarFill");
+    reg.timebarFill.x = reg.timebarBG.x + 1;
+    reg.timebarFill.y = reg.timebarBG.y;
+    reg.timebarFill.initialWidth = reg.timebarFill.width;
 }
 
 /**
@@ -369,6 +378,11 @@ function createObstacles(type) {
     #gravity
 **/
 function applyGravity(e, type) {
+
+    if (reg.player.locked === true) {
+        return false;
+    }
+
     //window.console.log(arguments, type);
     var gravityVolume = 1500;
     if (type === "none") {
@@ -422,28 +436,47 @@ function applyGravity(e, type) {
 
 //////// MECHANICS ///////////////////////
 
-function applyShift() {
-    for (var i = 0; i < reg.itemsWithShift.length; i++) {
-        reg.itemsWithShift[i].blendMode = 14;
+function toggleShift() {
+    if (reg.player.shifted === true) {
+        removeShift();
+    } else {
+        applyShift();
     }
-    for (var i = 0; i < reg.itemsWithoutShift.length; i++) {
-        reg.itemsWithoutShift[i].alpha = 1;
-    }
-    reg.player.velocity.x = 0;
-    reg.player.velocity.y = 0;
-    reg.player.gravity.x = 0;
-    reg.player.gravity.y = 0;
-    reg.player.locked = true;
+}
 
+function applyShift() {
+    if (reg.timebarFill <= 0) {
+        return false;
+    }
+    for (var i = 0; i < reg.itemsWithShift.length; i++) {
+        window.console.log(reg.itemsWithShift[i]);
+        reg.strip.loadTexture("bg2");
+    }
+
+    reg.blocks.setAllChildren("alpha", 1, true, false, 0, true);
+
+    initShiftTimer(decreaseShiftBar);
+    reg.player.body.velocity.x = 0;
+    reg.player.body.velocity.y = 0;
+    reg.player.body.gravity.x = 0;
+    reg.player.body.gravity.y = 0;
+    reg.player.body.locked = true;
+    reg.player.animations.play("idle");
+    reg.player.shifted = true;
 }
 
 function removeShift() {
     for (var i = 0; i < reg.itemsWithShift.length; i++) {
         reg.itemsWithShift[i].blendMode = PIXI.blendModes.NORMAL;
     }
-    for (var i = 0; i < reg.itemsWithoutShift.length; i++) {
-        reg.itemsWithoutShift[i].alpha = 0;
-    }
+    
+    reg.blocks.setAllChildren("alpha", 0, true, false, 0, true);
+    
+
+    stopShiftDecrease();
+    reg.player.locked = false;
+    reg.player.animations.play("idle");
+    reg.player.shifted = false;
     // reg.player.velocity.x = 0;//reg.levelEditor[reg.currentLevel].velocity;
     // reg.player.velocity.y = 0;
     // reg.player.gravity.x = 0;
@@ -460,6 +493,9 @@ function toggleDeconstruct() {
 }
 
 function enableDeconstruct() {
+    if (reg.timebarFill <= 10) {
+        return false;
+    }
     window.console.log("deconstruct now");
     reg.player.body.enable = false;
     reg.player.animations.play("deconstruct");
