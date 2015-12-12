@@ -32,7 +32,7 @@ GAME.Main.prototype = {
         gameStop = false;
 
         // CHANGE THIS TO CHANGE CURRENT SECTOR
-        reg.currentLevel = "gravity";
+        reg.currentLevel = "shift";
         createElements();
 
         //createStrip();
@@ -139,7 +139,7 @@ GAME.Main.prototype = {
     },
     render: function() {
         if (reg.player) {
-            //game.debug.body(reg.player);
+            game.debug.body(reg.player);
             //game.debug.body(reg.sectionElements.children[0]);
         }
     }
@@ -303,6 +303,7 @@ function createElements() {
         reg.sectionElements.add(wallD);
 
         createObstacles("gravity");
+        addPortals("gravity");
     }
     else if(type === "shift") {
         createObstacles("shift");
@@ -315,6 +316,15 @@ function createElements() {
     }
     else if(type === "tutorial") {
         createObstacles("tutorial");
+    }
+}
+
+function addPortals(type) {
+    var portals = game.add.group();
+    
+    if(type === "gravity") {
+        var portal1 = game.add.sprite(20, 40, "portals", "portal_portrait_01");
+
     }
 }
 

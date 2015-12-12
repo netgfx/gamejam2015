@@ -56,7 +56,6 @@
             "overwrite" : true
         },
         {
-
             "type": "atlasJSONHash",
             "key": "lightnings",
             "textureURL": "assets/lightning.png",
@@ -89,6 +88,13 @@
             "key": "border-bottom",
             "url": "assets/border_bottom.png",
             "overwrite": true
+        },
+        {
+            "type": "atlasJSONHash",
+            "key": "portals",
+            "textureURL": "assets/portals.png",
+            "atlasURL": "assets/atlas/portals.json",
+            "atlasData": null
         }
     ],
     "sounds": [
