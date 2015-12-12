@@ -15,6 +15,7 @@ GAME.Main.prototype = {
 
         }
 
+        utils.garbageCollect();
         // Simulate a pointer click/tap input at the center of the stage
         // when the example begins running.
         game.input.activePointer.x = this.game.width / 2;
@@ -30,6 +31,7 @@ GAME.Main.prototype = {
         reg.mainScore = 0;
         gameStop = false;
 
+        // CHANGE THIS TO CHANGE CURRENT SECTOR
         reg.currentLevel = "gravity";
         createElements();
 
@@ -40,20 +42,21 @@ GAME.Main.prototype = {
 
         //// ENABLE KEYBOARD KEYS FOR ONE-OFF
         var spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        var upKey;
-        var downKeyn
+        var upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        var downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+        var leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        var rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
         spaceKey.onDown.add(toggleDeconstruct, this);
+        upKey.onDown.add(applyGravity, this, 0, "top");
+        downKey.onDown.add(applyGravity, this,0, "down");
+        leftKey.onDown.add(applyGravity, this, 0, "left");
+        rightKey.onDown.add(applyGravity, this, 0, "right");
+
+        // TODO: add event listener args
 
         if (reg.player.locked === false) {
-            if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-                applyGravity("top");
-            } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-                applyGravity("down");
-            } else if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-                applyGravity("left");
-            } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-                applyGravity("right");
-            }
+            
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 // TODO: Check for game mode
                 //toggleDeconstruct();
@@ -113,7 +116,7 @@ GAME.Main.prototype = {
         }
 
         if(reg.blocks) {
-            game.physics.arcade.overlap(reg.sectionElements, reg.player, onHeroCollide);
+            game.physics.arcade.overlap(reg.blocks, reg.player, onHeroCollide);
         }
 
     },
@@ -277,12 +280,43 @@ function createElements() {
 
         createObstacles("gravity");
     }
+    else if(type === "shift") {
+        createObstacles("shift");
+    }
+    else if (type === "polarity") {
+        createObstacles("polarity");
+    }
+    else if(type === "deconstruct") {
+
+    }
+    else if(type === "tutorial") {
+
+    }
+}
+
+function createObstacles(type) {
+    if (type === "gravity") {
+        createSectorGravity();
+    }
+    else if(type === "shift") {
+        createSectorShift();    
+    }
+    else if(type === "polarity") {
+        createSectorPolarity();
+    }
+    else if(type === "deconstruct") {
+        createSectorDeconstruct();
+    }
+    else if(type === "tutorial") {
+        createSectorTutorial();
+    }
 }
 
 /**
     #gravity
 **/
-function applyGravity(type) {
+function applyGravity(e, type) {
+    //window.console.log(arguments, type);
     var gravityVolume = 1500;
     if (type === "none") {
         reg.player.body.gravity.x = 0;
@@ -291,6 +325,7 @@ function applyGravity(type) {
         reg.player.body.velocity.y = 0;
         reg.player.body.gravity.x = 0;
         reg.player.animations.play("idle");
+        reg.morph.play();
     }
     if (type === "left") {
         reg.player.body.gravity.x = 0;
@@ -299,6 +334,7 @@ function applyGravity(type) {
         reg.player.body.velocity.y = 0;
         reg.player.body.gravity.x = -gravityVolume;
         reg.player.animations.play("triangleLeft");
+        reg.morph.play();
     }
     if (type === "right") {
         reg.player.body.gravity.x = 0;
@@ -307,6 +343,7 @@ function applyGravity(type) {
         reg.player.body.velocity.y = 0;
         reg.player.body.gravity.x = gravityVolume;
         reg.player.animations.play("triangleRight");
+        reg.morph.play();
     }
     if (type === "top") {
         reg.player.body.gravity.x = 0;
@@ -315,6 +352,7 @@ function applyGravity(type) {
         reg.player.body.velocity.y = 0;
         reg.player.body.gravity.y = -gravityVolume;
         reg.player.animations.play("triangleUp");
+        reg.morph.play();
     }
     if (type === "down") {
         reg.player.body.gravity.x = 0;
@@ -323,6 +361,7 @@ function applyGravity(type) {
         reg.player.body.velocity.y = 0;
         reg.player.body.gravity.y = gravityVolume;
         reg.player.animations.play("triangleDown");
+        reg.morph.play();
     }
 }
 
@@ -358,34 +397,7 @@ function removeShift() {
     // reg.player.gravity.y = 0;
 }
 
-function bringBlocks() {
-    var towerGroup = game.add.group();
-    var itemAssets = ["box1", "box2", "box3", "box4"];
-    var items = 40;
-    var index;
-    var y = game.height / 2 - 128 / 2;
-    towerGroup.y = y;
-    var x = game.width;
-    var item;
-    for (var i = 0; i < items; i++) {
-        index = game.rnd.integerInRange(0, 3);
-        x = x + 128 + game.rnd.integerInRange(90, 256);
-        y = game.rnd.integerInRange(-10, 10);
-        window.console.log(index);
-        item = game.add.sprite(x, y, itemAssets[index]);
-        item.inputEnabled = true;
-        item.events.onInputDown.add(removeBox, item);
-        towerGroup.add(item);
-    }
 
-    reg.towerGroup = towerGroup;
-}
-
-function startBlocks() {
-    tweenProperty(reg.towerGroup, "x", {
-        "x": -reg.towerGroup.width - game.width - (128 * 3)
-    }, reg.towerGroup.width * 2 - 100, 0, Phaser.Easing.Linear.None);
-}
 
 function toggleDeconstruct() {
     if (reg.player.body.enable === true) {

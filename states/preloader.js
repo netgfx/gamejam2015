@@ -12,6 +12,7 @@ GAME.Preloader.prototype = {
 
         // ADD PACK
         this.game.load.pack("general", "assets/files.json", null, this);
+        this.game.load.pack("sounds", "assets/files.json", null, this);
 
         // FONTS
         /*this.game.load.bitmapFont('blackRedStroke', 'styles/fonts/font/blackRedStroke/blackRedStroke.png', 'styles/fonts/font/blackRedStroke/blackRedStroke.fnt');

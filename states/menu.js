@@ -16,12 +16,12 @@ GAME.Menu.prototype = {
         if(reg.song === undefined){
             reg.song = game.add.audio('song');
             reg.song.repeat = true;
-            reg.song.volume = 0.3;
+            reg.song.volume = 0.5;
         }
 
         if(reg.morph === undefined){
             reg.morph = game.add.audio('morph');
-            reg.morph.volume = 0.5;
+            reg.morph.volume = 0.1;
         }
 
         if(reg.keyboardtyping === undefined) {
@@ -34,6 +34,12 @@ GAME.Menu.prototype = {
             reg.success.volume = 0.5;
         }
 
+        var sheath;
+        if(sheath === undefined) {
+            sheath = game.add.audio("sheath");
+            sheath.volume = 0.5;
+        }
+
         // if (reg.sound === true && reg.song.isPlaying === false) {
         //     reg.song.play();
         // }
@@ -42,6 +48,8 @@ GAME.Menu.prototype = {
         //     this.soundButton.alpha = 0;
         //     this.nosoundButton.alpha = 1;
         // }
+
+        // TODO: ENABLE BACK BEFORE RELEASE
 /*
         this.logoGroup = game.add.group();
 

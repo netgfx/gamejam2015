@@ -94,6 +94,12 @@
     "sounds": [
         {
             "type": "audio",
+            "key": "sheath",
+            "urls": ["assets/sounds/sheath.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
             "key": "lightning",
             "urls": ["assets/sounds/spark.mp3"],
             "autoDecode": true
