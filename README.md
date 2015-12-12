@@ -1,2 +1,2 @@
-# gamejam2015
-Enigma
+# Phaser_Bootstrap
+A simple bootstrap for phaser

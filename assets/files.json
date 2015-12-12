@@ -1,0 +1,124 @@
+{
+    "general": [
+        {
+            "type": "image",
+            "key": "bg",
+            "url": "assets/bg.jpg",
+            "overwrite": true
+        },
+        {
+            "type": "atlasJSONHash",
+            "key": "hero",
+            "textureURL": "assets/hero.png",
+            "atlasURL": "assets/atlas/hero.json",
+            "atlasData":null
+        },
+        {
+            "type": "image",
+            "key" : "wallH",
+            "url" : "assets/obstacleH.png",
+            "overwrite" : true
+        },
+        {
+            "type": "image",
+            "key" : "wallV",
+            "url" : "assets/obstacleV.png",
+            "overwrite" : true
+        },
+        {
+            "type": "image",
+            "key" : "logoBG",
+            "url" : "assets/logo/logo_bg.jpg",
+            "overwrite" : true
+        },
+        {
+            "type": "image",
+            "key" : "logo_text",
+            "url" : "assets/logo/logo_text.png",
+            "overwrite" : true
+        },
+        {
+            "type": "image",
+            "key" : "logo_shield",
+            "url" : "assets/logo/shield.png",
+            "overwrite" : true
+        },
+        {
+            "type": "image",
+            "key" : "sword_left",
+            "url" : "assets/logo/sword_left.png",
+            "overwrite" : true
+        },
+        {
+            "type": "image",
+            "key" : "sword_right",
+            "url" : "assets/logo/sword_right.png",
+            "overwrite" : true
+        },
+        {
+
+            "type": "atlasJSONHash",
+            "key": "lightnings",
+            "textureURL": "assets/lightning.png",
+            "atlasURL": "assets/atlas/lightning.json",
+            "atlasData": null
+        }
+    ],
+    "sounds": [
+        {
+            "type": "audio",
+            "key": "lightning",
+            "urls": ["assets/sounds/spark.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "click",
+            "urls": ["assets/sounds/button_click.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "destruct",
+            "urls": ["assets/sounds/destruct.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "morph",
+            "urls": ["assets/sounds/morph.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "morph",
+            "urls": ["assets/sounds/keyboardtyping.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "morph",
+            "urls": ["assets/sounds/keyboardtyping.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "construction",
+            "urls": ["assets/sounds/construction.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "morph",
+            "urls": ["assets/sounds/deconstruction.mp3"],
+            "autoDecode": true
+        }
+    ],
+    "meta": {
+        "generated": "1401380327373",
+        "version": "1.0",
+        "app": "Phaser Asset Packer",
+        "url": "http://phaser.io",
+        "copyright": "Photon Storm Ltd. 2014"
+    }
+}

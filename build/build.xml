@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This build.xml is used for merging and compressing Javascript and CSS -->
+<project name="General JS/CSS minify template" basedir="." default="all">
+
+    <property name="verbose" value="true" />
+
+    <property name="dest.dir" value="${basedir}/.." />
+    <property name="src.dir" value="${basedir}/.." />
+    <property name="less.dir" value="${basedir}/../less" />
+    <property name="compressor.dir" value="bin/yuicompressor-2.4.7.jar" />
+    <property name="tool.less" value="lessc.cmd" />
+    <property name="tmp_css_file" value="tmp.css" />
+    <property name="login_css_min_file" value="css/login.min.css" />
+    <property name="main_css_min_file" value="css/styles.min.css" />
+    <property name="tmp_js_file" value="tmp.js" />
+    <property name="login_js_min_file" value="js/login.min.js" />
+    <property name="main_js_min_file" value="js/main.min.js" />
+
+    <target name="css_main">
+        <concat destfile="${dest.dir}/${tmp_css_file}" fixlastline="yes"
+            append="no" encoding="UTF-8" outputencoding="UTF-8">
+            <filelist dir="${src.dir}"
+                files="
+                    css/font.css
+                    " />
+        </concat>
+
+        <apply executable="${tool.less}" failonerror="true">
+            <srcfile/>
+            <arg value=">>"/>
+            <arg value="${dest.dir}/${tmp_css_file}"/>
+            <filelist dir="${src.dir}"
+                files="
+                    less/reset.less
+                    less/grid.less
+                    less/layout.less
+                    less/grid-view-tabs.less
+                    less/node-details-tabs.less
+                    less/timeline-tabs.less
+                    less/node-modal.less
+                    less/timeline.less
+                    less/graph.less
+                    less/style.less
+                    less/login.less
+                    less/grid-view.less
+                    less/ie10.less
+                    less/timeline-dark.less
+                    " />
+        </apply>
+
+
+        <java jar="${compressor.dir}" fork="true">
+            <arg value="${dest.dir}/${tmp_css_file}" />
+            <arg value="-o" />
+            <arg value="${dest.dir}/${main_css_min_file}" />
+        </java>
+        <delete file="${dest.dir}/${tmp_css_file}" />
+    </target>
+
+    <target name="css_login">
+        <concat destfile="${dest.dir}/${tmp_css_file}" fixlastline="yes"
+            append="no" encoding="UTF-8" outputencoding="UTF-8">
+            <filelist dir="${src.dir}"
+                files="
+                    css/font.css
+                    " />
+        </concat>
+
+        <apply executable="${tool.less}" failonerror="true">
+            <srcfile/>
+            <arg value=">>"/>
+            <arg value="${dest.dir}/${tmp_css_file}"/>
+            <filelist dir="${src.dir}"
+                files="
+                    less/reset.less
+                    less/grid.less
+                    less/layout.less
+                    less/style.less
+                    less/login.less
+                    " />
+        </apply>
+
+
+        <java jar="${compressor.dir}" fork="true">
+            <arg value="${dest.dir}/${tmp_css_file}" />
+            <arg value="-o" />
+            <arg value="${dest.dir}/${login_css_min_file}" />
+        </java>
+        <delete file="${dest.dir}/${tmp_css_file}" />
+    </target>
+
+    <target name="js_main">
+        <concat destfile="${dest.dir}/${tmp_js_file}" fixlastline="yes"
+            append="no" encoding="UTF-8" outputencoding="UTF-8">
+            <filelist dir="${src.dir}"
+                files="
+                    js/libs/jquery.js
+                    js/libs/underscore.js
+                    js/libs/kinetic.js
+                    js/libs/mousewheel.js
+                    js/libs/greensock/TweenMax.min.js
+                    js/libs/detectMobile.js
+                    js/K2.js
+                    js/app.js
+                    js/registry.js
+                    js/session_handler.js
+                    js/template_engine.js
+                    js/cookies.js
+                    js/ui.js
+                    js/canvas.js
+                    js/languages.js
+                    js/main.js
+                    js/attachments_view.js
+                    js/enquiry_view.js
+                    js/slide_attachments_view.js
+                    js/presentation_view.js
+                    js/nodes_details_view.js
+                    js/message_view.js
+                    js/splash_view.js
+                    js/change_password_view.js
+                    js/main_timeline.js
+                    js/date_util.js
+                    js/libs/tablesorter.js
+                    js/libs/tablesorter-widgets.js
+                " />
+        </concat>
+        <java jar="${compressor.dir}" fork="true">
+            <arg value="${dest.dir}/${tmp_js_file}" />
+            <arg value="-o" />
+            <arg value="${dest.dir}/${main_js_min_file}" />
+        </java>
+        <delete file="${dest.dir}/${tmp_js_file}" />
+    </target>
+
+    <target name="js_login">
+        <concat destfile="${dest.dir}/${tmp_js_file}" fixlastline="yes"
+            append="no" encoding="UTF-8" outputencoding="UTF-8">
+            <filelist dir="${src.dir}"
+                files="
+                    js/libs/jquery.js
+                    js/libs/underscore.js
+                    js/libs/detectMobile.js
+                    js/K2.js
+                    js/app.js
+                    js/browser_check.js
+                    js/template_engine.js
+                    js/cookies.js
+                    js/ui.js
+                    js/session_handler.js
+                    js/languages.js
+                    js/registry.js
+                    js/login.js
+                " />
+        </concat>
+        <java jar="${compressor.dir}" fork="true">
+            <arg value="${dest.dir}/${tmp_js_file}" />
+            <arg value="-o" />
+            <arg value="${dest.dir}/${login_js_min_file}" />
+        </java>
+        <delete file="${dest.dir}/${tmp_js_file}" />
+    </target>
+
+    <target name="all" depends="css_login, css_main, js_login, js_main">
+    </target>
+
+</project>

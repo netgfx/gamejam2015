@@ -1,0 +1,100 @@
+{"frames": {
+
+"Explo__000":
+{
+	"frame": {"x":801,"y":808,"w":91,"h":93},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":120,"y":175,"w":91,"h":93},
+	"sourceSize": {"w":394,"h":359}
+},
+"Explo__001":
+{
+	"frame": {"x":532,"y":808,"w":267,"h":212},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":29,"y":118,"w":267,"h":212},
+	"sourceSize": {"w":394,"h":359}
+},
+"Explo__002":
+{
+	"frame": {"x":617,"y":579,"w":276,"h":227},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":20,"y":101,"w":276,"h":227},
+	"sourceSize": {"w":394,"h":359}
+},
+"Explo__003":
+{
+	"frame": {"x":398,"y":2,"w":335,"h":301},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":24,"y":29,"w":335,"h":301},
+	"sourceSize": {"w":394,"h":359}
+},
+"Explo__004":
+{
+	"frame": {"x":2,"y":2,"w":394,"h":328},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":394,"h":328},
+	"sourceSize": {"w":394,"h":359}
+},
+"Explo__005":
+{
+	"frame": {"x":617,"y":305,"w":277,"h":272},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":61,"w":277,"h":272},
+	"sourceSize": {"w":394,"h":359}
+},
+"Explo__006":
+{
+	"frame": {"x":2,"y":332,"w":339,"h":308},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":51,"w":339,"h":308},
+	"sourceSize": {"w":394,"h":359}
+},
+"Explo__007":
+{
+	"frame": {"x":735,"y":2,"w":245,"h":286},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":50,"y":64,"w":245,"h":286},
+	"sourceSize": {"w":394,"h":359}
+},
+"Explo__008":
+{
+	"frame": {"x":343,"y":332,"w":272,"h":273},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":24,"y":46,"w":272,"h":273},
+	"sourceSize": {"w":394,"h":359}
+},
+"Explo__009":
+{
+	"frame": {"x":269,"y":642,"w":261,"h":284},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":37,"y":49,"w":261,"h":284},
+	"sourceSize": {"w":394,"h":359}
+},
+"Explo__010":
+{
+	"frame": {"x":2,"y":642,"w":265,"h":294},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":26,"y":54,"w":265,"h":294},
+	"sourceSize": {"w":394,"h":359}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "explosion_new.png",
+	"format": "RGBA8888",
+	"size": {"w":982,"h":1022},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:96a7a7fcf36ad4104717bf8cfa47c5ba:4fd8119b5bd11996ce21bdd6c258cd85:3385365bdb6d980752dc783a01b78b64$"
+}
+}
