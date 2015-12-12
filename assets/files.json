@@ -3,7 +3,7 @@
         {
             "type": "image",
             "key": "bg",
-            "url": "assets/bg.jpg",
+            "url": "assets/bg.png",
             "overwrite": true
         },
         {
