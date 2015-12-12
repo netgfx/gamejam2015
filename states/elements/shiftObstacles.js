@@ -79,8 +79,8 @@ function decreaseShiftBar() {
 	var volume = 5;
 	reg.timebarFill.width = Math.round(reg.timebarFill.width - volume);
 
-	if(reg.timebarFill.width < 0) {
-		reg.timebarFill.width = 0;
+	if(reg.timebarFill.width < 10) {
+		reg.timebarFill.width = 10;
 		removeShift();
 	}
 }

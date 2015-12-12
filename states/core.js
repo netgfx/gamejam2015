@@ -33,7 +33,7 @@ GAME.Main.prototype = {
         gameStop = false;
 
         // CHANGE THIS TO CHANGE CURRENT SECTOR
-        reg.currentLevel = "deconstruct";
+        reg.currentLevel = "shift";
         createElements();
 
         //createStrip();
@@ -236,14 +236,18 @@ function createDeconstructBar() {
 }
 
 function createShiftBar() {
+    
+    ///
+    reg.timebarFill = game.add.sprite(0, 0, "shiftbarFill");
     reg.timebarBG = game.add.image(0, 0, "shiftbarBG");
     reg.timebarBG.x = game.width / 2 - reg.timebarBG.width / 2;
     reg.timebarBG.y = 60;
-    ///
-    reg.timebarFill = game.add.sprite(0, 0, "shiftbarFill");
-    reg.timebarFill.x = reg.timebarBG.x + 1;
+    reg.timebarFill.x = reg.timebarBG.x + 2;
     reg.timebarFill.y = reg.timebarBG.y;
     reg.timebarFill.initialWidth = reg.timebarFill.width;
+
+
+    
 }
 
 /**
@@ -445,7 +449,7 @@ function toggleShift() {
 }
 
 function applyShift() {
-    if (reg.timebarFill <= 0) {
+    if (reg.timebarFill <= 10) {
         return false;
     }
     for (var i = 0; i < reg.itemsWithShift.length; i++) {
@@ -460,7 +464,7 @@ function applyShift() {
     reg.player.body.velocity.y = 0;
     reg.player.body.gravity.x = 0;
     reg.player.body.gravity.y = 0;
-    reg.player.body.locked = true;
+    reg.player.locked = true;
     reg.player.animations.play("idle");
     reg.player.shifted = true;
 }
