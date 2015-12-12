@@ -3,62 +3,54 @@
 **/
 
 function createSectorShift() {
-	var num = 9;
+	var num = 8;
 	var blocks = game.add.group();
 	var block;
 	var offset1 = 39;
 	var coords = [{
-			x: 200,
-			y: 0 + offset1,
-			type: "wallV",
-			index: "#1"
-		}, {
-			x: 200,
-			y: 230 + offset1,
-			type: "wallV",
-			index: "#2"
-		},
-
+		x: 200,
+		y: 330 ,
+		type: "wallV",
+		index: "#1"
+	},
+	{
+		x: 400,
+		y: 530,
+		type: "wallV",
+		index: "#2"
+	},
 		{
-			x: 200,
-			y: 460 + offset1,
-			type: "wallH",
-			index: "#4"
-		}, {
-			x: 450,
-			y: 180,
-			type: "wallH",
-			index: "#5"
-		}, {
-			x: game.width / 2 + 150,
-			y: game.height / 2 - 160,
-			type: "wallH",
-			index: "#6"
-		}, {
-			x: 30,
-			y: game.height - 105,
-			type: "wallH",
-			index: "#7"
-		},
-
+		x: 550,
+		y: 80,
+		type: "wallV",
+		index: "#3"
+	},{
+		x: 800,
+		y: game.height - 120,
+		type: "wallH",
+		index: "#4"
+	},{
+		x: 600,
+		y: 400,
+		type: "wallV",
+		index: "#5"
+	},{
+		x: 110,
+		y: 100,
+		type: "wallH",
+		index: "#6"
+	},{
+		x: 710,
+		y: 120,
+		type: "wallH",
+		index: "#7"
+	},
 		{
-			x: game.width / 2 + 55,
-			y: game.height / 2 - 90,
-			type: "wallV",
-			index: "#8"
-		},
-
-		{
-			x: game.width / 2 + 55,
-			y: game.height - 280,
-			type: "wallV",
-			index: "#10"
-		}, {
-			x: game.width - 230,
-			y: game.height / 2 + 127,
-			type: "wallH",
-			index: "#11"
-		}
+		x: game.width - 280,
+		y: game.height/2 - 150,
+		type: "wallV",
+		index: "Ï„ÎµÎ»ÎµÏ…Ï„Î±Î¯Î¿"
+	}
 
 	];
 	for (var i = 0; i < num; i++) {
@@ -66,7 +58,7 @@ function createSectorShift() {
 		block = game.add.sprite(0, 0, pos.type);
 		block.x = pos.x;
 		block.y = pos.y;
-		block.alpha = 0;
+		block.alpha = 0.8;
 		// REMOVE WHEN DONE
 		var text = game.add.text(pos.x, pos.y, pos.index, {
 			font: '16px Arial',

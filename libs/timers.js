@@ -27,6 +27,21 @@ function initAdvancedTimer(time) {
     return reg.timer;
 }
 
+function initDeconstructLoopedTimer(fn, time) {
+    reg.deconstructTimer = game.time.create(false);
+    var _time = time || 250;
+
+    reg.deconstructTimer.loop(_time, fn, this, []);
+    reg.deconstructTimer.start();
+}
+
+function removeDeconstructTimer() {
+    if(reg.deconstructTimer) {
+        reg.deconstructTimer.stop();
+        game.time.events.remove(reg.deconstructTimer);
+    }
+}
+
 /**
  * [removeTimer description]
  * @return {[type]} [description]
@@ -100,7 +115,6 @@ function addLoopedTimer(time, fn) {
  * @return {[type]}        [description]
  */
 function simpleTimer(time, fn, completeFn) {
-
     var timer = {}
     completeFn = completeFn || function () {
         game.time.events.remove(timer);

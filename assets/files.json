@@ -95,6 +95,42 @@
             "textureURL": "assets/portals.png",
             "atlasURL": "assets/atlas/portals.json",
             "atlasData": null
+        },
+        {
+            "type": "image",
+            "key": "timebarBG",
+            "url": "assets/lifeBarTime_01.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "timebarFill",
+            "url": "assets/lifeBarTime_02.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "shiftbarBG",
+            "url": "assets/lifeBarShift_01.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "shiftbarFill",
+            "url": "assets/lifeBarShift_02.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "deconstructbarBG",
+            "url": "assets/lifeBarDeconstruction_01.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "deconstructbarFill",
+            "url": "assets/lifeBarDeconstruction_02.png",
+            "overwrite": true
         }
     ],
     "sounds": [
@@ -144,6 +180,18 @@
             "type": "audio",
             "key": "deconstruction",
             "urls": ["assets/sounds/deconstruction.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "song",
+            "urls": ["assets/sounds/maingameplay.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "menusong",
+            "urls": ["assets/sounds/menu.mp3"],
             "autoDecode": true
         }
     ],

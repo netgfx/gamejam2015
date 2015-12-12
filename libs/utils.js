@@ -38,7 +38,17 @@ utils = {
         return "#"+String(name);
     },
     garbageCollect: function () {
+        if(reg.blocks) {
+            reg.blocks.removeChildren();
+            reg.blocks.destroy();
+            reg.blocks = null;
+        }
 
+        if(reg.towerGroup) {
+            reg.towerGroup.removeChildren();
+            reg.towerGroup.destroy();
+            reg.towerGroup = null;
+        }
 
     }
 };

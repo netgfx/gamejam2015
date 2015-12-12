@@ -32,7 +32,7 @@ GAME.Main.prototype = {
         gameStop = false;
 
         // CHANGE THIS TO CHANGE CURRENT SECTOR
-        reg.currentLevel = "shift";
+        reg.currentLevel = "deconstruct";
         createElements();
 
         //createStrip();
@@ -54,19 +54,20 @@ GAME.Main.prototype = {
         var leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         var rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
-        if(reg.levelEditor[reg.currentLevel].mechanic === "deconstruct"){
+        if (reg.levelEditor[reg.currentLevel].mechanic === "deconstruct") {
             spaceKey.onDown.add(toggleDeconstruct, this);
+            createDeconstructBar();
         }
-
-        upKey.onDown.add(applyGravity, this, 0, "top");
-        downKey.onDown.add(applyGravity, this,0, "down");
-        leftKey.onDown.add(applyGravity, this, 0, "left");
-        rightKey.onDown.add(applyGravity, this, 0, "right");
-
+        else{
+            upKey.onDown.add(applyGravity, this, 0, "top");
+            downKey.onDown.add(applyGravity, this, 0, "down");
+            leftKey.onDown.add(applyGravity, this, 0, "left");
+            rightKey.onDown.add(applyGravity, this, 0, "right");
+        }
         // TODO: add event listener args
 
         if (reg.player.locked === false) {
-            
+
             if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                 // TODO: Check for game mode
                 //toggleDeconstruct();
@@ -78,6 +79,9 @@ GAME.Main.prototype = {
                 }
             }
         }
+
+        // INIT MAIN TRACK //
+        reg.song.play();
 
         // create modals
         // createModal("game-over");
@@ -125,10 +129,9 @@ GAME.Main.prototype = {
             game.physics.arcade.overlap(reg.sectionElements, reg.player, onHeroCollide);
         }
 
-        if(reg.blocks) {
+        if (reg.blocks) {
             game.physics.arcade.overlap(reg.blocks, reg.player, onHeroCollide);
         }
-
     },
     sampleFunction: function(blast) {
 
@@ -155,20 +158,17 @@ function createBackground() {
 
 function createHero() {
     var player = game.add.sprite(100, 0, "hero");
-    if(reg.levelEditor[reg.currentLevel].mechanic === "gravity"){
+    if (reg.levelEditor[reg.currentLevel].mechanic === "gravity") {
         player.y = game.height / 2 - player.height / 2;
         player.x = game.width / 2 - player.width / 2;
-    }
-    else if(reg.levelEditor[reg.currentLevel].mechanic === "deconstruct") {
-        player.y = game.height/2 - player.height/2;
+    } else if (reg.levelEditor[reg.currentLevel].mechanic === "deconstruct") {
+        player.y = game.height / 2 - player.height / 2;
         player.x = 100;
-    }
-    else if(reg.levelEditor[reg.currentLevel].mechanic === "polarity") {
-        player.y = game.height/2 - player.height/2;
-        player.x = 100;   
-    }
-    else if(reg.levelEditor[reg.currentLevel].mechanic === "shift"){
-        player.y = game.height/2 - player.height/2;
+    } else if (reg.levelEditor[reg.currentLevel].mechanic === "polarity") {
+        player.y = game.height / 2 - player.height / 2;
+        player.x = 100;
+    } else if (reg.levelEditor[reg.currentLevel].mechanic === "shift") {
+        player.y = game.height / 2 - player.height / 2;
         player.x = 100;
     }
     player.anchor.setTo(0.5, 0.5);
@@ -213,6 +213,30 @@ function createHero() {
     reg.player = player;
 }
 
+function createTimeBar() {
+    reg.timebarBG = game.add.image(0, 0, "timebarBG");
+    reg.timebarBG.x = game.width/2 - reg.timebarBG.width/2;
+    reg.timebarBG.y = 5;
+    //
+    reg.timebarFill = game.add.image(0, 0, "timebarFill");
+    reg.timebarFill.x = reg.timebarBG+5;
+    reg.timebarFill.y = reg.timebarBG+5;
+    reg.timebarFill.initialWidth = reg.timebarFill.width;
+}
+
+function createDeconstructBar() {
+    window.console.log("init deconstruction bar");
+    reg.timebarBG = game.add.image(0, 0, "deconstructbarBG");
+    reg.timebarBG.x = game.width/2 - reg.timebarBG.width/2;
+    reg.timebarBG.y = 60;
+    ///
+    reg.timebarFill = game.add.sprite(0, 0, "deconstructbarFill");
+    reg.timebarFill.x = reg.timebarBG.x+1;
+    reg.timebarFill.y = reg.timebarBG.y;
+    reg.timebarFill.initialWidth = reg.timebarFill.width;
+    window.console.log(reg.timebarFill.x);
+}
+
 /**
     HERO MORPH STATES
 **/
@@ -244,10 +268,13 @@ function morphHero(type) {
 function enterPortal(portal, player) {
     reg.success.play();
     player.animations.play("idle");
-    player.x = portal.x+portal.width/2 - player.width/2;
-    player.y = portal.y+portal.height/2 - player.height/2;
-
-
+    player.x = portal.x + portal.width / 2 - player.width / 2;
+    player.y = portal.y + portal.height / 2 - player.height / 2;
+    reg.player.body.gravity.x = 0;
+    reg.player.body.velocity.x = 0;
+    reg.player.body.gravity.y = 0;
+    reg.player.body.velocity.y = 0;
+    reg.player.body.gravity.x = 0;
 }
 
 function createElements() {
@@ -304,25 +331,21 @@ function createElements() {
 
         createObstacles("gravity");
         addPortals("gravity");
-    }
-    else if(type === "shift") {
+    } else if (type === "shift") {
         createObstacles("shift");
-    }
-    else if (type === "polarity") {
+    } else if (type === "polarity") {
         createObstacles("polarity");
-    }
-    else if(type === "deconstruct") {
+    } else if (type === "deconstruct") {
         createObstacles("deconstruct");
-    }
-    else if(type === "tutorial") {
+    } else if (type === "tutorial") {
         createObstacles("tutorial");
     }
 }
 
 function addPortals(type) {
     var portals = game.add.group();
-    
-    if(type === "gravity") {
+
+    if (type === "gravity") {
         var portal1 = game.add.sprite(20, 40, "portals", "portal_portrait_01");
 
     }
@@ -331,17 +354,13 @@ function addPortals(type) {
 function createObstacles(type) {
     if (type === "gravity") {
         createSectorGravity();
-    }
-    else if(type === "shift") {
-        createSectorShift();    
-    }
-    else if(type === "polarity") {
+    } else if (type === "shift") {
+        createSectorShift();
+    } else if (type === "polarity") {
         createSectorPolarity();
-    }
-    else if(type === "deconstruct") {
+    } else if (type === "deconstruct") {
         createSectorDeconstruct();
-    }
-    else if(type === "tutorial") {
+    } else if (type === "tutorial") {
         createSectorTutorial();
     }
 }
@@ -432,7 +451,6 @@ function removeShift() {
 }
 
 
-
 function toggleDeconstruct() {
     if (reg.player.body.enable === true) {
         enableDeconstruct();
@@ -446,6 +464,7 @@ function enableDeconstruct() {
     reg.player.body.enable = false;
     reg.player.animations.play("deconstruct");
     reg.deconstruction.play();
+    initDeconstructTimer(decreaseDeconstructionBar);
 }
 
 function disableDeconstruct() {
@@ -453,6 +472,7 @@ function disableDeconstruct() {
     reg.player.body.enable = true;
     reg.player.animations.play("construct");
     reg.construction.play();
+    initDeconstructTimer(increaseDeconstructionBar);
 }
 
 
@@ -475,7 +495,7 @@ function onHeroCollide(item, player) {
     reg.player.body.gravity.x = 0;
     reg.player.body.gravity.y = 0;
     reg.player.animations.play("idle");
-    reg.player.reset(game.width/2-reg.player.width/2, game.height/2-reg.player.height/2);
+    reg.player.reset(game.width / 2 - reg.player.width / 2, game.height / 2 - reg.player.height / 2);
     return true;
 }
 

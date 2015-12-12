@@ -16,7 +16,13 @@ GAME.Menu.prototype = {
         if(reg.song === undefined){
             reg.song = game.add.audio('song');
             reg.song.repeat = true;
-            reg.song.volume = 0.5;
+            reg.song.volume = 0.4;
+        }
+
+        if(reg.menusong === undefined) {
+            reg.menusong = game.add.audio('menu');
+            reg.menusong.repeat = true;
+            reg.menusong.volume = 0.4;
         }
 
         if(reg.morph === undefined){

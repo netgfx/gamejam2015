@@ -7,14 +7,15 @@ function createSectorDeconstruct() {
 function bringBlocks() {
     var towerGroup = game.add.group();
     var itemAssets = "wallV";
-    var items = 40;
+    var items = 37;
     var index;
     var y = game.height / 2 - 200 / 2;
     towerGroup.y = y;
     var x = game.width;
+	var gap=[2,0,3,2,3,0,0,3,3,0,1,0,3,0,0,3,2,0,1,0,2,2,2,0,1,3,0,1,3,4,0,0,1,0,5,0,1]
     var item;
     for (var i = 0; i < items; i++) {
-        x = x + 55 + game.rnd.integerInRange(200, 800);
+        x = x + 255 + (200*gap[i]);
         y = game.rnd.integerInRange(-10, 10);
         item = game.add.sprite(x, y, itemAssets);        
         game.physics.enable(item, Phaser.Physics.ARCADE);
@@ -33,4 +34,29 @@ function startBlocks() {
     tweenProperty(reg.towerGroup, "x", {
         "x": -reg.towerGroup.width - game.width - (55 * 5)
     }, reg.towerGroup.width * 2+200, 0, Phaser.Easing.Linear.None);
+}
+
+function initDeconstructTimer(fn) {
+	removeDeconstructTimer();
+	initDeconstructLoopedTimer(fn, 250);
+}
+
+function decreaseDeconstructionBar() {
+	var volume = 5;
+	reg.timebarFill.width = Math.round(reg.timebarFill.width - volume);
+	window.console.log(reg.timebarFill.width, volume);
+
+	if(reg.timebarFill.width < 0) {
+		reg.timebarFill.width = 0;
+		window.console.log("ended mojo");
+	}
+}
+
+function increaseDeconstructionBar() {
+	var volume = 6;
+	reg.timebarFill.width = reg.timebarFill.width + volume;
+
+	if(reg.timebarFill.width > reg.timebarFill.initialWidth) {
+		reg.timebarFill.width = reg.timebarFill.initialWidth;
+	}
 }
