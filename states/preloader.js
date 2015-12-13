@@ -19,8 +19,8 @@ GAME.Preloader.prototype = {
         this.game.load.bitmapFont('fontYellowGlow','styles/fonts/font/yellowRedStroke/yellowRedStroke.png', 'styles/fonts/font/yellowRedStroke/yellowRedStroke.fnt');
         this.game.load.bitmapFont('yellowRedStroke-noglow','styles/fonts/font/yellowRedStroke-noglow/yellowRedStroke-noglow.png', 'styles/fonts/font/yellowRedStroke-noglow/yellowRedStroke-noglow.fnt');
         */
-        this.game.load.bitmapFont('greenFont','styles/fonts/fontGreen.png', 'styles/fonts/fontGreen.fnt');
-
+        this.game.load.bitmapFont('blackFont','styles/fonts/fontBlack.png', 'styles/fonts/fontBlack.fnt');
+        this.game.load.video('end', 'assets/video/endFrame.mp4');
         // UI
 
 
@@ -40,7 +40,7 @@ GAME.Preloader.prototype = {
         this.game.load.image("menuNoSound", "assets/menuNoSound.png");*/
 
         // BACKGROUNDS
-        
+
 
         // OBSTACLES
 

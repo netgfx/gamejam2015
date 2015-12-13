@@ -1,4 +1,4 @@
-GAME.Main = function(game) {};
+GAME.Main = function (game) {};
 
 var blast = false;
 var gameStop = false;
@@ -6,10 +6,11 @@ var enemiesDestroyed = 0;
 
 // Setup the example
 GAME.Main.prototype = {
-    create: function() {
+    create: function () {
+
         // Set stage background color
         game.stage.backgroundColor = 0x121212;
-        reg.strip = game.add.image(0, 0, "bg");
+        reg.strip = game.add.image(0, 0, "bg_" + reg.currentLevel);
 
         if (!this.game.device.desktop) {
 
@@ -32,10 +33,9 @@ GAME.Main.prototype = {
         reg.mainScore = 0;
         gameStop = false;
 
-        // CHANGE THIS TO CHANGE CURRENT SECTOR
-        reg.currentLevel = "shift";
-        createElements();
 
+        createElements();
+        createConsole();
         //createStrip();
         createHero();
         // create HUD
@@ -79,7 +79,7 @@ GAME.Main.prototype = {
 
         // INIT MAIN TRACK //
         reg.song.play();
-
+        openConsole(reg.currentLevel);
         // create modals
         // createModal("game-over");
         //createModal("level");
@@ -92,7 +92,7 @@ GAME.Main.prototype = {
             }
         );
     },
-    update: function() {
+    update: function () {
         if (this.game.time.fps !== 0) {
             this.fpsText.setText(this.game.time.fps + ' FPS');
         }
@@ -129,15 +129,19 @@ GAME.Main.prototype = {
         if (reg.blocks) {
             game.physics.arcade.overlap(reg.blocks, reg.player, onHeroCollide);
         }
+
+        if (reg.portals) {
+            game.physics.arcade.overlap(reg.portals, reg.player, enterPortal);
+        }
     },
-    sampleFunction: function(blast) {
+    sampleFunction: function (blast) {
 
         if (gameStop === true) {
             return false;
         }
 
     },
-    render: function() {
+    render: function () {
         if (reg.player) {
             //game.debug.body(reg.player);
             //game.debug.body(reg.sectionElements.children[0]);
@@ -236,7 +240,7 @@ function createDeconstructBar() {
 }
 
 function createShiftBar() {
-    
+
     ///
     reg.timebarFill = game.add.sprite(0, 0, "shiftbarFill");
     reg.timebarBG = game.add.image(0, 0, "shiftbarBG");
@@ -246,8 +250,6 @@ function createShiftBar() {
     reg.timebarFill.y = reg.timebarBG.y;
     reg.timebarFill.initialWidth = reg.timebarFill.width;
 
-
-    
 }
 
 /**
@@ -288,6 +290,21 @@ function enterPortal(portal, player) {
     reg.player.body.gravity.y = 0;
     reg.player.body.velocity.y = 0;
     reg.player.body.gravity.x = 0;
+    window.console.log(" >>>>>> ",reg.currentLevel);
+    if(reg.currentLevel === "gravity") {
+        reg.currentLevel = "shift";
+        reg.player.body.enable = false;
+        var tweenObj = tweenProperty(reg.blocks, "alpha", {alpha:0}, 500, 0.2);
+        tweenObj.onComplete.add(function(){
+            game.state.start("Game");
+        }, this);
+    }
+    else if(reg.currentLevel === "shift") {
+        reg.currentLevel = "deconstruct";
+    }
+    else if(reg.currentLevel === "deconstruct") {
+        game.state.start("EndFrame");
+    }
 }
 
 function createElements() {
@@ -344,24 +361,88 @@ function createElements() {
 
         createObstacles("gravity");
         addPortals("gravity");
+        addIcons("gravity");
     } else if (type === "shift") {
         createObstacles("shift");
+        addIcons("shift");
     } else if (type === "polarity") {
         createObstacles("polarity");
     } else if (type === "deconstruct") {
         createObstacles("deconstruct");
+        addIcons("deconstruction");
     } else if (type === "tutorial") {
         createObstacles("tutorial");
     }
 }
 
+function addIcons(type) {
+
+        var icon1;
+        if(type === "gravity"){
+            icon1 = game.add.image(0, 0, "icon_gravity_selected");
+        }
+        else{
+            icon1 = game.add.image(0, 0, "icon_gravity");
+        }
+        icon1.x = game.width/2 - icon1.width*2;
+        icon1.y = 6;
+
+        var icon2;
+        if(type === "shift"){
+            icon2 = game.add.image(0, 0, "icon_shift_selected");
+        }
+        else {
+            icon2 = game.add.image(0, 0, "icon_shift");
+        }
+
+        icon2.x = icon1.x+icon1.width + 20;
+        icon2.y = 6;
+
+        var icon3;
+        if(type === "deconstruction") {
+            icon3 = game.add.image(0, 0, "icon_deconstruction_selected");
+        }
+        else {
+            icon3 = game.add.image(0, 0, "icon_deconstruction");
+        }
+
+        icon3.x = icon2.x+icon2.width+20;
+        icon3.y = 6;
+
+}
+
 function addPortals(type) {
     var portals = game.add.group();
-
+    portals.enablePhysics = true;
+    portals.physicsBodyType = Phaser.Physics.ARCADE;
     if (type === "gravity") {
-        var portal1 = game.add.sprite(20, 40, "portals", "portal_portrait_01");
+        var portal1 = game.add.sprite(-20, 40, "portals", "portalLandscape_01");
+        game.physics.enable(portal1, Phaser.Physics.ARCADE);
+        portal1.body.collideWorldBounds = false;
+        portal1.body.allowGravity = false;
+        portal1.body.immovable = true;
+        portal1.active = true;
+        portal1.body.enable = true;
+        portal1.animations.add("open", Phaser.Animation.generateFrameNames('portalLandscape_0', 2, 5, '', 0), 4, true);
+        portal1.animations.play("open");
 
+        var portal2 = game.add.sprite(game.width-130, 0, "portals", "portalPortrait_01");
+        portal2.y = game.height - portal2.height;
+        game.physics.enable(portal2, Phaser.Physics.ARCADE);
+        portal2.body.collideWorldBounds = false;
+        portal2.body.allowGravity = false;
+        portal2.body.immovable = true;
+        portal2.active = true;
+        portal2.body.enable = true;
+        portal2.animations.add("open", Phaser.Animation.generateFrameNames('portalPortrait_0', 2, 5, '', 0), 4, true);
+        portal2.animations.play("open");
+
+
+        portals.add(portal1);
+        portals.add(portal2);
     }
+
+    reg.portals = portals;
 }
 
 function createObstacles(type) {
@@ -449,7 +530,7 @@ function toggleShift() {
 }
 
 function applyShift() {
-    if (reg.timebarFill <= 10) {
+    if (reg.timebarFill <= 20) {
         return false;
     }
     for (var i = 0; i < reg.itemsWithShift.length; i++) {
@@ -473,9 +554,9 @@ function removeShift() {
     for (var i = 0; i < reg.itemsWithShift.length; i++) {
         reg.itemsWithShift[i].blendMode = PIXI.blendModes.NORMAL;
     }
-    
+
     reg.blocks.setAllChildren("alpha", 0, true, false, 0, true);
-    
+
 
     stopShiftDecrease();
     reg.player.locked = false;
@@ -565,26 +646,52 @@ function shockAndAwe() {
         .start();
 }
 
-function openConsole() {
-    var console = game.add.sprite(0, 0, "console");
-    console.x = 0;
-    console.y = game.height;
+function createConsole() {
+    reg._console = game.add.sprite(0, 0, "console");
+    reg._console.x = game.width / 2 - 100;
+    reg._console.y = game.height - 20;
+    reg._console.alpha = 0;
+}
 
-    var consoleTween = tweenProperty(console, "y", {
-        y: game.height - console.height
-    }, 400, 0, Phaser.Easing.Cubic.InOut);
+function openConsole(name) {
+    reg._console.note = name;
+    var consoleTween = tweenProperty(reg._console, "y", {
+        y: reg._console.y - 200
+    }, 500, 1, Phaser.Easing.Cubic.InOut);
 
-    consoleTween.onComplete.add(enableTypingMessage);
+    if (name) {
+        consoleTween.onComplete.add(function (note, tween, name) {
+            window.console.log(arguments[2], name);
+            enableTypingSpecificMessage(arguments[2]);
+
+        }, this, null, name);
+    } else {
+        consoleTween.onComplete.add(enableTypingMessage);
+    }
+
+}
+
+function enableTypingSpecificMessage(name) {
+    var quote = utils.getSpecificQuote(name);
+    reg.pickedQuote = quote;
+    reg.typedText = game.add.bitmapText(game.width - 300, 60, "blackFont", "", 18);
+    countdown(typeWriter, quote.length);
+    reg.pensil.play();
+    reg.player.locked = true;
 }
 
 function enableTypingMessage() {
     var quote = utils.getRandomQuote();
     reg.pickedQuote = quote;
-    reg.typedText = game.add.bitmapText(0, 0, "greenFont", "", 22);
+    reg.typedText = game.add.bitmapText(0, 0, "blackFont", "", 22);
     countdown(typeWriter, quote.length);
+    reg.pensil.play();
 }
 
 function typeWriter(text) {
+    if (reg.pensil.isPlaying === false) {
+        reg.pensil.play();
+    }
     var length = reg.typedText.text.length;
     reg.typedText.text += reg.pickedQuote.charAt(length);
 }
@@ -719,6 +826,7 @@ game.state.add('Scores', GAME.Scores);
 game.state.add('Info', GAME.Info);
 game.state.add('MainMenu', GAME.Menu);
 game.state.add("Levels", GAME.Levels);
+game.state.add('EndFrame', GAME.EndFrame);
 game.state.add('Game', GAME.Main);
 
 game.state.start('Boot');

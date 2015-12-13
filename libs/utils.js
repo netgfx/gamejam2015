@@ -32,6 +32,12 @@ utils = {
 
         return quote;
     },
+    getSpecificQuote: function(name) {
+        window.console.log(name);
+        var quote = reg.specificQuotes[name].quote;
+
+        return quote;
+    },
     getName: function() {
         var name = game.rnd.integerInRange(10000, 99999);
 
@@ -48,6 +54,11 @@ utils = {
             reg.towerGroup.removeChildren();
             reg.towerGroup.destroy();
             reg.towerGroup = null;
+        }
+
+        if(reg.player) {
+            reg.player.destroy();
+            reg.player = null;
         }
 
     }

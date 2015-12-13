@@ -15,17 +15,19 @@ reg = {
 
     },
     quotes: [
-        "sample quote to be writen in the console"
+        "Hey come on... do it already!",
+        "I wonder who is testing who...",
+        "Deadlines, deadlines everywhere..."
     ],
     specificQuotes:{
         "shift":{
-            "quote":"There is no room for '2' in the world of 1's and 0's, and no 'green with envy' in a black-and-white world.",
+            "quote":"Ok here goes nothing.\nI gotta be juuuuust right with this one.\n[SPACE] seems like a good button\nfor this.",
         },
         "gravity":{
-            "quote": "What draws me near, pushes me away."
+            "quote": "What draws me near, pushes me away.\nLet's test some movement!\n[UP], [DOWN], [LEFT], [RIGHT]\nSeems about right!"
         },
         "deconstruct": {
-            "quote": "In order to be, I have to die."
+            "quote": "In order to be, I have to die.\nMy hero has to avoid the obstacles\nLet's see how he fairs.\n[SPACE] will help!"
         },
         "polarity": {
             "quote": "We are one as long as we are apart."

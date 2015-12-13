@@ -4,13 +4,15 @@ GAME.Menu = function(game) {
 
 GAME.Menu.prototype = {
     create: function() {
-        //this.add.image(0, 0, 'menuBG');
+        game.stage.backgroundColor = 0x000000;
+        this.add.image(game.width/2 - 420/2, 50, 'menuBG');
 
-        /*this.startButton = this.add.button((game.width/2) - 216, 300, 'menuPlay', this.startGame, this, 1, 0, 2);
-        this.infoButton = this.add.button((game.width/2) - 170, this.startButton.y + 110, 'menuScores', this.startScores, this, 1, 0, 2);
-        this.soundButton = this.add.button((game.width/2) - 127, this.infoButton.y + 110, 'menuSoundOn', this.toggleSound, this, 1, 0, 2);
+        this.startButton = this.add.button((game.width/2) - 226/2 + 20, 230, 'menuPlay', this.startGame, this);
 
-        this.scoresButton = this.add.button((game.width/2) - 184, this.soundButton.y + 110, 'menuInfo', this.startInfo, this, 1, 0, 2);*/
+        this.soundButton = this.add.button(this.startButton.x, this.startButton.y + 90, 'menuSoundOn', this.toggleSound, this);
+
+        this.fb = this.add.button(this.startButton.x, this.soundButton.y + 90, 'menuFB', this.shareFacebook, this);
+        this.tw = this.add.button(this.startButton.x, this.fb.y + 90, 'menuTwitter', this.shareTwitter, this);
 
         // sound manager
         if(reg.song === undefined){
@@ -50,11 +52,20 @@ GAME.Menu.prototype = {
             reg.success.volume = 0.5;
         }
 
+        if(reg.pensil === undefined) {
+            reg.pensil = game.add.audio("pencilsketching");
+            reg.pensil.repeat = true;
+            reg.pensil.volume = 0.5;
+        }
+
         var sheath;
         if(sheath === undefined) {
             sheath = game.add.audio("sheath");
             sheath.volume = 0.5;
         }
+
+        // CHANGE THIS TO CHANGE CURRENT SECTOR
+        reg.currentLevel = "gravity";
 
         // if (reg.sound === true && reg.song.isPlaying === false) {
         //     reg.song.play();
@@ -123,7 +134,7 @@ GAME.Menu.prototype = {
 
     */
 
-    game.state.start("Game");
+    //game.state.start("Game");
 
     },
     startGame: function() {
@@ -152,7 +163,7 @@ GAME.Menu.prototype = {
         game.state.start("Credits");
     },
     shareTwitter: function() {
-        var sharerURL = "http://twitter.com/intent/tweet?text=" + encodeURIComponent("I captured " + reg.mainScore + " presents on Present...ing! can you beat my score? http://xmas2015.7linternational.com");
+        var sharerURL = "http://twitter.com/intent/tweet?text=" + encodeURIComponent("Can you solve the Enigma of my design? #gamejam2015");
         window.open(
             sharerURL,
             'Twitter',
@@ -163,17 +174,16 @@ GAME.Menu.prototype = {
         FB.ui({
             display: 'dialog',
             method: "feed",
-            link: "http://xmas2015.7linternational.com",
+            link: "http://www.netgfx.com/gamejam2015",
             /*caption: title,*/
-            description: "I captured " + reg.mainScore + " presents on Present...ing! can you beat my score? http://xmas2015.7linternational.com",
-            picture: "http://xmas2015.7linternational.com/assets/promo.png",
+            description: "Can you solve the Enigma of my design? #gamjam2015",
+            picture: "http://www.netgfx.com/gamejam2015/assets/bg.png",
             size: {
                 width: 640,
                 height: 480
             },
             width: 640,
             height: 480
-            /*caption: "I captured " + reg.mainScore + " presents on Present...ing! can you beat my score? http://presenting.surge.sh/",*/
         }, function(response) {
 
         });

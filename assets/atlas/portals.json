@@ -1,84 +1,84 @@
 {"frames": {
 
-"portal_portrait_01":
+"portalLandscape_01":
 {
-	"frame": {"x":1,"y":1,"w":246,"h":194},
+	"frame": {"x":103,"y":1,"w":244,"h":99},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":27,"y":0,"w":246,"h":194},
-	"sourceSize": {"w":300,"h":200}
+	"spriteSourceSize": {"x":0,"y":1,"w":244,"h":99},
+	"sourceSize": {"w":244,"h":100}
 },
-"portal_portrait_02":
+"portalLandscape_02":
 {
-	"frame": {"x":249,"y":1,"w":190,"h":194},
+	"frame": {"x":103,"y":102,"w":189,"h":99},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":51,"y":0,"w":190,"h":194},
-	"sourceSize": {"w":300,"h":200}
+	"spriteSourceSize": {"x":28,"y":1,"w":189,"h":99},
+	"sourceSize": {"w":244,"h":100}
 },
-"portal_portrait_03":
+"portalLandscape_03":
 {
-	"frame": {"x":441,"y":1,"w":150,"h":193},
+	"frame": {"x":349,"y":1,"w":119,"h":98},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":69,"y":1,"w":150,"h":193},
-	"sourceSize": {"w":300,"h":200}
+	"spriteSourceSize": {"x":62,"y":2,"w":119,"h":98},
+	"sourceSize": {"w":244,"h":100}
 },
-"portal_portrait_04":
+"portalLandscape_04":
 {
-	"frame": {"x":593,"y":1,"w":101,"h":193},
+	"frame": {"x":294,"y":102,"w":74,"h":99},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":93,"y":1,"w":101,"h":193},
-	"sourceSize": {"w":300,"h":200}
+	"spriteSourceSize": {"x":85,"y":1,"w":74,"h":99},
+	"sourceSize": {"w":244,"h":100}
 },
-"portal_portrait_05":
+"portalLandscape_05":
 {
-	"frame": {"x":696,"y":1,"w":70,"h":193},
+	"frame": {"x":370,"y":101,"w":97,"h":99},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":116,"y":1,"w":70,"h":193},
-	"sourceSize": {"w":300,"h":200}
+	"spriteSourceSize": {"x":74,"y":0,"w":97,"h":99},
+	"sourceSize": {"w":244,"h":100}
 },
-"portal_portrait_06":
+"portalPortrait_01":
 {
-	"frame": {"x":593,"y":1,"w":101,"h":193},
+	"frame": {"x":1,"y":1,"w":100,"h":244},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":93,"y":1,"w":101,"h":193},
-	"sourceSize": {"w":300,"h":200}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":244},
+	"sourceSize": {"w":100,"h":244}
 },
-"portal_portrait_07":
+"portalPortrait_02":
 {
-	"frame": {"x":441,"y":1,"w":150,"h":193},
+	"frame": {"x":572,"y":1,"w":99,"h":189},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":69,"y":1,"w":150,"h":193},
-	"sourceSize": {"w":300,"h":200}
+	"spriteSourceSize": {"x":1,"y":29,"w":99,"h":189},
+	"sourceSize": {"w":100,"h":244}
 },
-"portal_portrait_08":
+"portalPortrait_03":
 {
-	"frame": {"x":249,"y":1,"w":190,"h":194},
+	"frame": {"x":470,"y":1,"w":100,"h":119},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":51,"y":0,"w":190,"h":194},
-	"sourceSize": {"w":300,"h":200}
+	"spriteSourceSize": {"x":0,"y":65,"w":100,"h":119},
+	"sourceSize": {"w":100,"h":244}
 },
-"portal_portrait_09":
+"portalPortrait_04":
 {
-	"frame": {"x":1,"y":1,"w":246,"h":194},
+	"frame": {"x":469,"y":122,"w":100,"h":97},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":27,"y":0,"w":246,"h":194},
-	"sourceSize": {"w":300,"h":200}
+	"spriteSourceSize": {"x":0,"y":74,"w":100,"h":97},
+	"sourceSize": {"w":100,"h":244}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "portals.png",
 	"format": "RGBA8888",
-	"size": {"w":767,"h":196},
+	"size": {"w":672,"h":246},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:7d2314744d8f94f3ea044bb23996a12a:05f8cda742c3a5ff3fbce5928eb7ba9e:4f391df34ad65cd057efa18e50a5bf32$"
+	"smartupdate": "$TexturePacker:SmartUpdate:cf126c4fbe660c3f3f72313eaa3b7ed9:9f356d9e89c225a74eb861781fba700f:4f391df34ad65cd057efa18e50a5bf32$"
 }
 }

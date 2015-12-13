@@ -111,11 +111,16 @@ function removeTimer() {
  * @return {[type]}         [description]
  */
 function countdown(fn, times, endFn) {
-    endFn = endFn || function () {};
     var _timer = game.time.create(false);
     _timer.start();
+     endFn = endFn || function () {
+        game.time.events.remove(_timer);
+        window.console.log("timer removed");
+        reg.pensil.stop();
+        reg.player.locked = false;
+    };
     _timer.onComplete.add(endFn);
-    _timer.repeat(Phaser.Timer.SECOND/6, times, fn, this);
+    _timer.repeat(Phaser.Timer.SECOND/10, times, fn, this);
     window.console.log("adding timer");
 }
 

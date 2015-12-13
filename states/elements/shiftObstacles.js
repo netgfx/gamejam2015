@@ -1,5 +1,5 @@
 /**
-	OBSTACLE CREATIONS FOR ALL SECTORS 
+	OBSTACLE CREATIONS FOR ALL SECTORS
 **/
 
 function createSectorShift() {
@@ -79,8 +79,8 @@ function decreaseShiftBar() {
 	var volume = 5;
 	reg.timebarFill.width = Math.round(reg.timebarFill.width - volume);
 
-	if(reg.timebarFill.width < 10) {
-		reg.timebarFill.width = 10;
+	if(reg.timebarFill.width < 20) {
+		reg.timebarFill.width = 20;
 		removeShift();
 	}
 }

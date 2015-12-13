@@ -137,6 +137,113 @@
             "key": "deconstructbarFill",
             "url": "assets/lifeBarDeconstruction_01.png",
             "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "menuPlay",
+            "url": "assets/menu/buttons_play.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "menuFB",
+            "url": "assets/menu/Buttons_fb.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "menuSoundOn",
+            "url": "assets/menu/buttons_sound.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "menuSoundOff",
+            "url": "assets/menu/buttons_sound_off.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "menuTwitter",
+            "url": "assets/menu/buttons_twitter.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "menuBG",
+            "url": "assets/menu/Main_menu_bg.png",
+            "overwrite": true
+        },
+        {
+            "type":"image",
+            "key":"bg_gravity",
+            "url":"assets/background_milimetre_01.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"bg_deconstruct",
+            "url":"assets/background_milimetre_02.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"bg_none",
+            "url":"assets/background_milimetre_03.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"bg_shift",
+            "url":"assets/background_milimetre_04.png",
+            "overwrite":true
+        },{
+            "type":"image",
+            "key":"bg_final",
+            "url":"assets/background_milimetre_05.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"console",
+            "url":"assets/Notes.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"icon_gravity",
+            "url":"assets/icons/ICONS_gravity.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"icon_shift",
+            "url":"assets/icons/ICONS_Shift.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"icon_deconstruction",
+            "url":"assets/icons/ICONS_deconstruction.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"icon_gravity_selected",
+            "url":"assets/icons/ICONS_gravity_selected.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"icon_shift_selected",
+            "url":"assets/icons/ICONS_Shift_selected.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"icon_deconstruction_selected",
+            "url":"assets/icons/ICONS_deconstruction_selected.png",
+            "overwrite":true
         }
     ],
     "sounds": [
@@ -172,8 +279,8 @@
         },
         {
             "type": "audio",
-            "key": "keyboardtyping",
-            "urls": ["assets/sounds/keyboardtyping.mp3"],
+            "key": "pencilsketching",
+            "urls": ["assets/sounds/pencilsketching.mp3"],
             "autoDecode": true
         },
         {
@@ -198,6 +305,12 @@
             "type": "audio",
             "key": "menusong",
             "urls": ["assets/sounds/menu.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "success",
+            "urls": ["assets/sounds/success.mp3"],
             "autoDecode": true
         }
     ],
