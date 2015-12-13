@@ -27,7 +27,7 @@ reg = {
             "quote": "What draws me near, pushes me away.\nLet's test some movement!\n[UP], [DOWN], [LEFT], [RIGHT]\nSeems about right!"
         },
         "deconstruct": {
-            "quote": "In order to be, I have to die.\nMy hero has to avoid the obstacles\nLet's see how he fairs.\n[SPACE] will help!"
+            "quote": "In order to be, I have to die.\nMy hero has to avoid the obstacles\nLet's see how he Fairs.\n[SPACE] will help!"
         },
         "polarity": {
             "quote": "We are one as long as we are apart."

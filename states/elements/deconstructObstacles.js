@@ -1,7 +1,7 @@
 
 function createSectorDeconstruct() {
 	bringBlocks();
-	startBlocks();
+	
 }
 
 function bringBlocks() {
@@ -27,13 +27,20 @@ function bringBlocks() {
         towerGroup.add(item);
     }
 
-    reg.towerGroup = towerGroup;
+    reg.blocks = towerGroup;
 }
 
 function startBlocks() {
-    tweenProperty(reg.towerGroup, "x", {
-        "x": -reg.towerGroup.width - game.width - (55 * 5)
-    }, reg.towerGroup.width * 2+200, 0, Phaser.Easing.Linear.None);
+    reg.deconstructTween = tweenProperty(reg.blocks, "x", {
+        "x": -reg.blocks.width - game.width - (55 * 5)
+    }, reg.blocks.width * 2+200, 0, Phaser.Easing.Linear.None);
+}
+
+function resetBlocks() {
+    reg.blocks.x = game.width+200;
+    reg.deconstructTween.stop();
+
+    simpleTimer(1500, startBlocks);
 }
 
 function initDeconstructTimer(fn) {

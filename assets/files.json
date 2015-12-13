@@ -183,24 +183,19 @@
         {
             "type":"image",
             "key":"bg_deconstruct",
-            "url":"assets/background_milimetre_02.png",
+            "url":"assets/bg_deconstruct.png",
             "overwrite":true
         },
         {
             "type":"image",
-            "key":"bg_none",
-            "url":"assets/background_milimetre_03.png",
+            "key":"bg_shift_invert",
+            "url":"assets/bg_shiftinvert.png",
             "overwrite":true
         },
         {
             "type":"image",
             "key":"bg_shift",
-            "url":"assets/background_milimetre_04.png",
-            "overwrite":true
-        },{
-            "type":"image",
-            "key":"bg_final",
-            "url":"assets/background_milimetre_05.png",
+            "url":"assets/bg_shiftnormal.png",
             "overwrite":true
         },
         {
@@ -243,6 +238,36 @@
             "type":"image",
             "key":"icon_deconstruction_selected",
             "url":"assets/icons/ICONS_deconstruction_selected.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"credits_title",
+            "url":"assets/credits_title.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"credits_text",
+            "url":"assets/credits_text.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"menuButton",
+            "url":"assets/menu_button.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"menuStart",
+            "url":"assets/start_button.png",
+            "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"storyBG",
+            "url":"assets/the_new_york_times_photo.png",
             "overwrite":true
         }
     ],

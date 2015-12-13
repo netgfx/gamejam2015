@@ -68,7 +68,7 @@ GAME.Menu.prototype = {
         }
 
         // CHANGE THIS TO CHANGE CURRENT SECTOR
-        reg.currentLevel = "shift";
+        reg.currentLevel = "deconstruct";
 
         // if (reg.sound === true && reg.song.isPlaying === false) {
         //     reg.song.play();

@@ -2,13 +2,14 @@ GAME.Story = function (game) {};
 
 GAME.Story.prototype = {
     create: function () {
-        this.add.image(0, 0, 'bg');
-
+        var storyBG = this.add.image(0, 0, 'storyBG');
+        storyBG.x = game.width/2- storyBG.width/2;
+        storyBG.y = 50;
         
-
-
         //this.menuButton = this.add.button((game.width/2) - 53, game.height - 150, 'menuBack', this.startMenu, this);
-        this.playButton = this.add.button((game.width/2) - (226/2), game.height - 300, 'menuPlay', this.startGame, this);
+        this.playButton = this.add.button((game.width/2) - (226/2), game.height - 300, 'menuStart', this.startGame, this);
+        this.playButton.x = this.playButton.x + 350;
+        this.playButton.y = this.playButton.y + 80;
 
         ///////////////////////////
 

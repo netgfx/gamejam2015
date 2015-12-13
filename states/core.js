@@ -377,6 +377,7 @@ function createElements() {
     } else if (type === "deconstruct") {
         createObstacles("deconstruct");
         addIcons("deconstruction");
+        addPortals("deconstruct");
     } else if (type === "tutorial") {
         createObstacles("tutorial");
     }
@@ -457,6 +458,8 @@ function addPortals(type) {
         portal1.animations.play("open");
 
         portals.add(portal1);
+    } else if (type === "deconstruct") {
+
     }
 
     reg.portals = portals;
@@ -550,12 +553,12 @@ function applyShift() {
     if (reg.timebarFill <= 20) {
         return false;
     }
-    if(reg.player.locked === true) {
+    if (reg.player.locked === true) {
         return false;
     }
     for (var i = 0; i < reg.itemsWithShift.length; i++) {
         window.console.log(reg.itemsWithShift[i]);
-        reg.strip.loadTexture("bg2");
+        reg.strip.loadTexture("bg_shift_invert");
     }
 
     reg.blocks.alpha = 1;
@@ -572,10 +575,12 @@ function applyShift() {
 }
 
 function removeShift() {
-    
-    if(reg.player.locked === true && reg.player.shifted === false) {
+
+    if (reg.player.locked === true && reg.player.shifted === false) {
         return false;
     }
+
+    reg.strip.loadTexture("bg_shift");
 
     reg.blocks.alpha = 0;
     reg.portals.alpha = 0;
@@ -645,7 +650,8 @@ function onHeroCollide(item, player) {
         reg.timebarFill.width = 200;
     } else if (reg.currentLevel === "deconstruct") {
         reg.player.reset(100, game.height / 2 - reg.player.height / 2);
-        reg.timebarFill = 200;
+        reg.timebarFill.width = 200;
+        resetBlocks();
     }
     return true;
 }
@@ -709,7 +715,11 @@ function enableTypingSpecificMessage(name) {
         reg.typedText.x = 20;
         reg.typedText.y = game.height - 230;
     }
-    countdown(typeWriter, quote.length);
+    if (reg.currentLevel === "deconstruct") {
+        countdown(typeWriter, quote.length, removeCustomTimer);
+    } else {
+        countdown(typeWriter, quote.length);
+    }
     reg.pensil.play();
     reg.player.locked = true;
 }
@@ -718,7 +728,11 @@ function enableTypingMessage() {
     var quote = utils.getRandomQuote();
     reg.pickedQuote = quote;
     reg.typedText = game.add.bitmapText(0, 0, "blackFont", "", 22);
-    countdown(typeWriter, quote.length);
+    if (reg.currentLevel === "deconstruct") {
+        countdown(typeWriter, quote.length, removeCustomTimer);
+    } else {
+        countdown(typeWriter, quote.length);
+    }
     reg.pensil.play();
 }
 
@@ -732,13 +746,24 @@ function typeWriter(text) {
     if (reg.currentLevel === "shift") {
         if (length === 20) {
             var blocksTween = tweenProperty(reg.blocks, "alpha", {
-                "alpha":0
+                "alpha": 0
             }, 400, 0, Phaser.Easing.Cubic.Out);
             var blocksTween = tweenProperty(reg.portals, "alpha", {
-                "alpha":0
+                "alpha": 0
             }, 400, 0, Phaser.Easing.Cubic.Out);
         }
     }
+}
+
+function removeCustomTimer(_timer) {
+
+    window.console.log(this, arguments);
+    game.time.events.remove(_timer);
+    window.console.log("custom timer removed");
+    reg.pensil.stop();
+    reg.player.locked = false;
+    startBlocks();
+
 }
 
 function createHUD() {
