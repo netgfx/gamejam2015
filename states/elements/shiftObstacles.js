@@ -58,7 +58,7 @@ function createSectorShift() {
 		block = game.add.sprite(0, 0, pos.type);
 		block.x = pos.x;
 		block.y = pos.y;
-		block.alpha = 0;
+		block.alpha = 1;
 		game.physics.enable(block, Phaser.Physics.ARCADE);
 		block.body.collideWorldBounds = false;
 		block.body.allowGravity = false;

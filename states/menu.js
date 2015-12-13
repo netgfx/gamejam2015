@@ -24,7 +24,7 @@ GAME.Menu.prototype = {
         }
 
         if(reg.menusong === undefined) {
-            reg.menusong = game.add.audio('menu');
+            reg.menusong = game.add.audio('menusong');
             reg.menusong.repeat = true;
             reg.menusong.volume = 0.4;
             reg.menusong.play();
@@ -141,7 +141,7 @@ GAME.Menu.prototype = {
 
     },
     startGame: function() {
-        game.state.start('Game');
+        game.state.start('Story');
     },
     startScores: function() {
         game.state.start('Scores');
