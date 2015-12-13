@@ -74,10 +74,10 @@ function createSectorGravity() {
 		block.body.enable = true;
 
 		// REMOVE WHEN DONE
-		var text = game.add.text(pos.x, pos.y, pos.index, {
-			font: '16px Arial',
-			fill: '#ff0000'
-		});
+		// var text = game.add.text(pos.x, pos.y, pos.index, {
+		// 	font: '16px Arial',
+		// 	fill: '#ff0000'
+		// });
 		blocks.add(block);
 	}
 

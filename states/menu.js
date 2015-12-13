@@ -16,6 +16,7 @@ GAME.Menu.prototype = {
         this.fb = this.add.button(this.startButton.x, this.soundButton.y + 90, 'menuFB', this.shareFacebook, this);
         this.tw = this.add.button(this.startButton.x, this.fb.y + 90, 'menuTwitter', this.shareTwitter, this);
 
+        reg.win = false;
         // sound manager
         if(reg.song === undefined){
             reg.song = game.add.audio('song');
@@ -68,7 +69,7 @@ GAME.Menu.prototype = {
         }
 
         // CHANGE THIS TO CHANGE CURRENT SECTOR
-        reg.currentLevel = "deconstruct";
+        reg.currentLevel = "gravity";
 
         // if (reg.sound === true && reg.song.isPlaying === false) {
         //     reg.song.play();
@@ -80,7 +81,7 @@ GAME.Menu.prototype = {
         // }
 
         // TODO: ENABLE BACK BEFORE RELEASE
-/*
+
         this.logoGroup = game.add.group();
 
         this.logoBackground = this.add.image(0, 0, "logoBG");
@@ -132,10 +133,9 @@ GAME.Menu.prototype = {
         logoTween.onComplete.add(function(e) {
             window.console.log(this);
             this.destroy();
-            game.state.start("Game");
+            
         }, this.logoGroup);
 
-    */
 
     //game.state.start("Game");
 

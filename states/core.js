@@ -77,6 +77,10 @@ GAME.Main.prototype = {
         // TODO: add event listener args
 
         // INIT MAIN TRACK //
+        if(reg.menusong){
+            reg.menusong.stop();
+        }
+
         reg.song.play();
         openConsole(reg.currentLevel);
         // create modals
@@ -90,10 +94,14 @@ GAME.Main.prototype = {
                 fill: '#ffffff'
             }
         );
+        var back = game.add.button(0, 0, 'back_button', backToMenu, this);
+        back.x = (game.width-back.width)-20;
+        back.y = 10;
+
     },
     update: function() {
         if (this.game.time.fps !== 0) {
-            this.fpsText.setText(this.game.time.fps + ' FPS');
+            //this.fpsText.setText(this.game.time.fps + ' FPS');
         }
 
         // UPDATE SOMETHING EACH FRAME
@@ -147,6 +155,10 @@ GAME.Main.prototype = {
         }
     }
 };
+
+function backToMenu() {
+    game.state.start("MainMenu");
+}
 
 ///////////////////// CREATORS //////////////////////////////////
 
@@ -226,7 +238,7 @@ function createTimeBar() {
 }
 
 function createDeconstructBar() {
-    window.console.log("init deconstruction bar");
+    //window.console.log("init deconstruction bar");
     reg.timebarBG = game.add.image(0, 0, "deconstructbarBG");
     reg.timebarBG.x = game.width / 2 - reg.timebarBG.width / 2;
     reg.timebarBG.y = 60;
@@ -235,7 +247,7 @@ function createDeconstructBar() {
     reg.timebarFill.x = reg.timebarBG.x + 1;
     reg.timebarFill.y = reg.timebarBG.y;
     reg.timebarFill.initialWidth = reg.timebarFill.width;
-    window.console.log(reg.timebarFill.x);
+    //window.console.log(reg.timebarFill.x);
 }
 
 function createShiftBar() {
@@ -291,7 +303,7 @@ function enterPortal(portal, player) {
     reg.player.body.gravity.y = 0;
     reg.player.body.velocity.y = 0;
     reg.player.body.gravity.x = 0;
-    window.console.log(" >>>>>> ", reg.currentLevel);
+   // window.console.log(" >>>>>> ", reg.currentLevel);
     if (reg.currentLevel === "gravity") {
         reg.currentLevel = "shift";
         reg.player.body.enable = false;
@@ -311,10 +323,13 @@ function enterPortal(portal, player) {
             game.state.start("Game");
         }, this);
     } else if (reg.currentLevel === "deconstruct") {
+        //reg.player.animations.currentAnim.onComplete = null;
+        reg.player.animations.play("idle");
+        reg.win = true;
         var tweenObj = tweenProperty(reg.player, "xy", {
             "x": game.width/2 - reg.player.width/2,
-            "y": game.height/2 - reg.player.height/2 
-        }, 1000, 0.5);
+            "y": (game.height/2 - reg.player.height/2) + 100
+        }, 12000, 0.5);
         tweenObj.onComplete.add(function() {
             game.state.start("EndFrame");
         }, this);
@@ -327,7 +342,7 @@ function createElements() {
     reg.sectionElements = game.add.group();
     reg.sectionElements.enablePhysics = true;
     reg.sectionElements.physicsBodyType = Phaser.Physics.ARCADE;
-    window.console.log("Current Mechanic: ", type);
+   // window.console.log("Current Mechanic: ", type);
     if (type === "gravity") {
         var wallR = game.add.sprite(0, 0, "border-right");
         wallR.x = game.width - wallR.width;
@@ -566,7 +581,7 @@ function applyShift() {
         return false;
     }
     for (var i = 0; i < reg.itemsWithShift.length; i++) {
-        window.console.log(reg.itemsWithShift[i]);
+      //  window.console.log(reg.itemsWithShift[i]);
         reg.strip.loadTexture("bg_shift_invert");
     }
 
@@ -617,7 +632,7 @@ function enableDeconstruct() {
     if (reg.timebarFill <= 10) {
         return false;
     }
-    window.console.log("deconstruct now");
+   // window.console.log("deconstruct now");
     reg.player.body.enable = false;
     reg.player.animations.play("deconstruct");
     reg.deconstruction.play();
@@ -625,7 +640,7 @@ function enableDeconstruct() {
 }
 
 function disableDeconstruct() {
-    window.console.log("construct back");
+  //  window.console.log("construct back");
     reg.player.animations.play("construct");
     reg.construction.play();
     reg.player.animations.currentAnim.onComplete.add(function () {
@@ -647,7 +662,7 @@ function onHeroCollide(item, player) {
         player = b.temp;
     }
 
-    window.console.log("ouch!");
+  //  window.console.log("ouch!");
     shockAndAwe();
     reg.player.body.velocity.x = 0;
     reg.player.body.velocity.y = 0;
@@ -708,7 +723,7 @@ function openConsole(name) {
 
     if (name) {
         consoleTween.onComplete.add(function(note, tween, name) {
-            window.console.log(arguments[2], name);
+           // window.console.log(arguments[2], name);
             enableTypingSpecificMessage(arguments[2]);
 
         }, this, null, name);
@@ -721,12 +736,17 @@ function openConsole(name) {
 function enableTypingSpecificMessage(name) {
     var quote = utils.getSpecificQuote(name);
     reg.pickedQuote = quote;
-    reg.typedText = game.add.bitmapText(game.width - 330, 60, "blackFont", "", 20);
+    if(name === "win"){
+        reg.typedText = game.add.bitmapText(game.width - 330, 60, "blackFont", "", 28);
+    }
+    else{
+        reg.typedText = game.add.bitmapText(game.width - 330, 60, "blackFont", "", 20);
+    }
     reg.pensil.play();
     reg.player.locked = true;
     if(name === "win") {
         reg.typedText.x = game.width/2 - 300,
-        reg.typedText.y = 120;
+        reg.typedText.y = 240;
     }
     if (reg.currentLevel === "shift") {
         reg.typedText.x = 20;
@@ -773,9 +793,9 @@ function typeWriter(text) {
 
 function removeCustomTimer(_timer) {
 
-    window.console.log(this, arguments);
+   // window.console.log(this, arguments);
     game.time.events.remove(_timer);
-    window.console.log("custom timer removed");
+   // window.console.log("custom timer removed");
     reg.pensil.stop();
     reg.player.locked = false;
     startBlocks();

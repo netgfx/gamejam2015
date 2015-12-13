@@ -269,6 +269,12 @@
             "key":"storyBG",
             "url":"assets/the_new_york_times_photo.png",
             "overwrite":true
+        },
+        {
+            "type":"image",
+            "key":"back_button",
+            "url":"assets/return_button.png",
+            "overwrite":true
         }
     ],
     "sounds": [
