@@ -3,7 +3,7 @@ GAME.Boot = function (game) {};
 GAME.Boot.prototype = {
     preload: function () {
 
-        this.load.image("loading", "assets/loading.png");
+        this.load.image("loading", "assets/loading_button.png");
         //this.load.image('monster2', "");
 
     },

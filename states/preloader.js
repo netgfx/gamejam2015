@@ -1,7 +1,7 @@
 GAME.Preloader = function (game) {};
 GAME.Preloader.prototype = {
     preload: function () {
-        this.game.stage.backgroundColor = '#16181a';
+        this.game.stage.backgroundColor = '#000000';
 
         // Add the progress bar
         /*this.loadBase = this.add.image(game.width/2 - 281/2, game.world.centerY - (30 / 2), 'loadBar');
@@ -9,6 +9,9 @@ GAME.Preloader.prototype = {
         this.preloadBar.x = game.world.centerX - (186/2)-30;
         this.preloadBar.y = game.world.centerY - (30 / 2) + 18;
         game.load.setPreloadSprite(this.preloadBar, 0);*/
+        var loading = this.add.image(0, 0, "loading");
+        loading.x = game.width/2 - loading.width/2;
+        loading.y = game.height/2 - loading.height/2;
 
         // ADD PACK
         this.game.load.pack("general", "assets/files.json", null, this);

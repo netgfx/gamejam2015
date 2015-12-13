@@ -281,9 +281,11 @@ function morphHero(type) {
 // Win condition
 function enterPortal(portal, player) {
     reg.success.play();
-    player.animations.play("idle");
-    player.x = portal.x + portal.width / 2 - player.width / 2;
-    player.y = portal.y + portal.height / 2 - player.height / 2;
+    reg.player.animations.play("idle");
+    if(portal !== undefined){
+        reg.player.x = portal.x + portal.width / 2 - player.width / 2;
+        reg.player.y = portal.y + portal.height / 2 - player.height / 2;
+    }
     reg.player.body.gravity.x = 0;
     reg.player.body.velocity.x = 0;
     reg.player.body.gravity.y = 0;
@@ -309,7 +311,14 @@ function enterPortal(portal, player) {
             game.state.start("Game");
         }, this);
     } else if (reg.currentLevel === "deconstruct") {
-        game.state.start("EndFrame");
+        var tweenObj = tweenProperty(reg.player, "xy", {
+            "x": game.width/2 - reg.player.width/2,
+            "y": game.height/2 - reg.player.height/2 
+        }, 1000, 0.5);
+        tweenObj.onComplete.add(function() {
+            game.state.start("EndFrame");
+        }, this);
+        openConsole("win");
     }
 }
 
@@ -617,9 +626,11 @@ function enableDeconstruct() {
 
 function disableDeconstruct() {
     window.console.log("construct back");
-    reg.player.body.enable = true;
     reg.player.animations.play("construct");
     reg.construction.play();
+    reg.player.animations.currentAnim.onComplete.add(function () {
+        reg.player.body.enable = true;
+    });
     initDeconstructTimer(increaseDeconstructionBar);
 }
 
@@ -711,6 +722,12 @@ function enableTypingSpecificMessage(name) {
     var quote = utils.getSpecificQuote(name);
     reg.pickedQuote = quote;
     reg.typedText = game.add.bitmapText(game.width - 330, 60, "blackFont", "", 20);
+    reg.pensil.play();
+    reg.player.locked = true;
+    if(name === "win") {
+        reg.typedText.x = game.width/2 - 300,
+        reg.typedText.y = 120;
+    }
     if (reg.currentLevel === "shift") {
         reg.typedText.x = 20;
         reg.typedText.y = game.height - 230;
@@ -720,8 +737,7 @@ function enableTypingSpecificMessage(name) {
     } else {
         countdown(typeWriter, quote.length);
     }
-    reg.pensil.play();
-    reg.player.locked = true;
+    
 }
 
 function enableTypingMessage() {

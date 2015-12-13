@@ -31,6 +31,9 @@ reg = {
         },
         "polarity": {
             "quote": "We are one as long as we are apart."
+        },
+        "win": {
+            "quote": "WOW! I made it to the end! Now my GRAND DESIGN is complete\nat last.\nI NEED TO SAVE and get some SLEEP!"
         }
     },
     selectedPower: "none",
