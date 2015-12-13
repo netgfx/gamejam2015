@@ -33,7 +33,6 @@ GAME.Main.prototype = {
         reg.mainScore = 0;
         gameStop = false;
 
-
         createElements();
         createConsole();
         //createStrip();
@@ -308,11 +307,11 @@ function enterPortal(portal, player) {
 }
 
 function createElements() {
-    var type = reg.levelEditor[reg.currentLevel].bgType;
+    var type = reg.levelEditor[reg.currentLevel].mechanic;
     reg.sectionElements = game.add.group();
     reg.sectionElements.enablePhysics = true;
     reg.sectionElements.physicsBodyType = Phaser.Physics.ARCADE;
-
+    window.console.log("Current Mechanic: ", type);
     if (type === "gravity") {
         var wallR = game.add.sprite(0, 0, "border-right");
         wallR.x = game.width - wallR.width;
@@ -616,7 +615,12 @@ function onHeroCollide(item, player) {
     reg.player.body.gravity.x = 0;
     reg.player.body.gravity.y = 0;
     reg.player.animations.play("idle");
-    reg.player.reset(game.width / 2 - reg.player.width / 2, game.height / 2 - reg.player.height / 2);
+    if(reg.currentLevel === "gravity"){
+        reg.player.reset(game.width / 2 - reg.player.width / 2, game.height / 2 - reg.player.height / 2);
+    }
+    else if(reg.currentLevel === "shift") {
+        reg.player.reset(50, game.height / 2 - reg.player.height / 2);
+    }
     return true;
 }
 
@@ -674,7 +678,7 @@ function openConsole(name) {
 function enableTypingSpecificMessage(name) {
     var quote = utils.getSpecificQuote(name);
     reg.pickedQuote = quote;
-    reg.typedText = game.add.bitmapText(game.width - 300, 60, "blackFont", "", 18);
+    reg.typedText = game.add.bitmapText(game.width - 330, 60, "blackFont", "", 20);
     countdown(typeWriter, quote.length);
     reg.pensil.play();
     reg.player.locked = true;

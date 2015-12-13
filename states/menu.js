@@ -10,6 +10,8 @@ GAME.Menu.prototype = {
         this.startButton = this.add.button((game.width/2) - 226/2 + 20, 230, 'menuPlay', this.startGame, this);
 
         this.soundButton = this.add.button(this.startButton.x, this.startButton.y + 90, 'menuSoundOn', this.toggleSound, this);
+        this.nosoundButton = this.add.button(this.startButton.x, this.startButton.y + 90, 'menuSoundOff', this.toggleSound, this);
+        this.nosoundButton.alpha = 0;
 
         this.fb = this.add.button(this.startButton.x, this.soundButton.y + 90, 'menuFB', this.shareFacebook, this);
         this.tw = this.add.button(this.startButton.x, this.fb.y + 90, 'menuTwitter', this.shareTwitter, this);
@@ -25,6 +27,7 @@ GAME.Menu.prototype = {
             reg.menusong = game.add.audio('menu');
             reg.menusong.repeat = true;
             reg.menusong.volume = 0.4;
+            reg.menusong.play();
         }
 
         if(reg.morph === undefined){
@@ -65,7 +68,7 @@ GAME.Menu.prototype = {
         }
 
         // CHANGE THIS TO CHANGE CURRENT SECTOR
-        reg.currentLevel = "gravity";
+        reg.currentLevel = "shift";
 
         // if (reg.sound === true && reg.song.isPlaying === false) {
         //     reg.song.play();
@@ -149,11 +152,11 @@ GAME.Menu.prototype = {
         if (reg.sound === false) {
             this.soundButton.alpha = 0;
             this.nosoundButton.alpha = 1;
-            reg.song.stop();
+            reg.menusong.stop();
         } else {
             this.nosoundButton.alpha = 0;
             this.soundButton.alpha = 1;
-            reg.song.play();
+            reg.menusong.play();
         }
     },
     startScores: function() {

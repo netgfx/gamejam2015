@@ -21,7 +21,7 @@ reg = {
     ],
     specificQuotes:{
         "shift":{
-            "quote":"Ok here goes nothing.\nI gotta be juuuuust right with this one.\n[SPACE] seems like a good button\nfor this.",
+            "quote":"Ok here goes nothing.\nI gotta be juuuuust right with this ONE.\n[SPACE] seems like a good button\nfor this.",
         },
         "gravity":{
             "quote": "What draws me near, pushes me away.\nLet's test some movement!\n[UP], [DOWN], [LEFT], [RIGHT]\nSeems about right!"

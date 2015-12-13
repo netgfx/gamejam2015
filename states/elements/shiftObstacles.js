@@ -59,6 +59,12 @@ function createSectorShift() {
 		block.x = pos.x;
 		block.y = pos.y;
 		block.alpha = 0;
+		game.physics.enable(block, Phaser.Physics.ARCADE);
+		block.body.collideWorldBounds = false;
+		block.body.allowGravity = false;
+		block.body.immovable = true;
+		block.active = true;
+		block.body.enable = true;
 		// REMOVE WHEN DONE
 		var text = game.add.text(pos.x, pos.y, pos.index, {
 			font: '16px Arial',
